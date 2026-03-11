@@ -26,8 +26,8 @@ struct CatalogueListRowView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
             Text("\(title) (\(imageCount))")
                 .font(.system(size: 17, weight: .bold))
-                
         }
+        .padding(.bottom, 13)
     }
 }
 
