@@ -45,6 +45,7 @@
 		E88EE35A2F60A0B000AC1D82 /* CatalogueListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE3592F60A0B000AC1D82 /* CatalogueListRowView.swift */; };
 		E88EE3622F61EAB100AC1D82 /* CatalogueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE3612F61EAB100AC1D82 /* CatalogueView.swift */; };
 		E88EE3682F62021700AC1D82 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE3672F62021700AC1D82 /* Collections.swift */; };
+		E88EE36A2F633D7500AC1D82 /* CollectionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE3692F633D7500AC1D82 /* CollectionRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,7 @@
 		E88EE3592F60A0B000AC1D82 /* CatalogueListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogueListRowView.swift; sourceTree = "<group>"; };
 		E88EE3612F61EAB100AC1D82 /* CatalogueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogueView.swift; sourceTree = "<group>"; };
 		E88EE3672F62021700AC1D82 /* Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
+		E88EE3692F633D7500AC1D82 /* CollectionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -317,6 +319,7 @@
 			children = (
 				E88EE3662F6201CC00AC1D82 /* Mock */,
 				E88EE3592F60A0B000AC1D82 /* CatalogueListRowView.swift */,
+				E88EE3692F633D7500AC1D82 /* CollectionRowView.swift */,
 				E88EE3612F61EAB100AC1D82 /* CatalogueView.swift */,
 			);
 			path = Catalogue;
@@ -486,6 +489,7 @@
 				ABC5E1B92C31FD51002B4068 /* TestCatalogView.swift in Sources */,
 				ABC5E1DF2C3204FB002B4068 /* LoadingView.swift in Sources */,
 				ABC5E1972C31F656002B4068 /* Colors.swift in Sources */,
+				E88EE36A2F633D7500AC1D82 /* CollectionRowView.swift in Sources */,
 				ABC5E1A42C31F800002B4068 /* NetworkClient.swift in Sources */,
 				ABC5E1D32C320438002B4068 /* NftDetailAssembly.swift in Sources */,
 				ABC5E1A12C31F6D7002B4068 /* Nft.swift in Sources */,
