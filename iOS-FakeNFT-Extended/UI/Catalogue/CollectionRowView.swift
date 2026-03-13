@@ -83,7 +83,7 @@ struct CollectionRowView: View {
     @Previewable @State var isLike: Bool = false
     @Previewable @State var isSelected: Bool = false
     let rating: Int = 4
-    let imageURL: String = "https://avatars.mds.yandex.net/i?id=34f57633c955c47b56c68537076e5bfa570e512b-5905145-images-thumbs&n=13"
+    let imageURL: String = "https://avatars.mds.yandex.net/i?id=9b49fc41c169d5c20a3e71d5cae1934ab2f2710e-4182781-images-thumbs&n=13"
     let name: String = "Ruby"
     let price: String = "1"
     
