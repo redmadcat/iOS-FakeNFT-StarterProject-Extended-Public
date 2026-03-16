@@ -5,3 +5,8 @@
 "Error.unknown" = "Произошла неизвестная ошибка";
 "Error.repeat" = "Повторить";
 "Error.title" = "Ошибка";
+"ActionSheet.sorting.title" = "Сортировка";
+"ActionSheet.sorting.price" = "По цене";
+"ActionSheet.sorting.rating" = "По рейтингу";
+"ActionSheet.sorting.name" = "По названию";
+"ActionSheet.sorting.close" = "Закрыть";
