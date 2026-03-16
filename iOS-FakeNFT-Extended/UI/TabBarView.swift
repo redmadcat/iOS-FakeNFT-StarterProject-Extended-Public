@@ -11,6 +11,15 @@ struct TabBarView: View {
                     )
                 }
                 .backgroundStyle(.background)
+            CartView()
+                .tabItem {
+                    Image(.cart).renderingMode(.template)
+                    Text("Tab.cart")
+                }
+                .backgroundStyle(.background)
+        }
+        .onAppear() {
+            UITabBar.appearance().unselectedItemTintColor = .ypBlackAD
         }
     }
 }
