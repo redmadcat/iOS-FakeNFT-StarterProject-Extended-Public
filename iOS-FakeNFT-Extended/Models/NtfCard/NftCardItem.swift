@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class NftCardItem: Identifiable {
+final class NftCardItem: Identifiable, Equatable {
     private(set) var id: UUID?
     var name: String
     var rating: Int
@@ -33,6 +33,10 @@ final class NftCardItem: Identifiable {
         self.image = image
         self.price = price
         self.currency = currency
+    }
+    
+    static func == (lhs: NftCardItem, rhs: NftCardItem) -> Bool {
+        return lhs.id == rhs.id
     }
         
     static let mockItems = [
