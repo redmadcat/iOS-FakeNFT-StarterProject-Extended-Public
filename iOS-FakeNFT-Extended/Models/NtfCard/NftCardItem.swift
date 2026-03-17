@@ -7,17 +7,6 @@
 
 import SwiftUI
 
-enum Currency: String, CaseIterable {
-    case BTC = "Bitcoin"
-    case USDT = "Tether"
-    case SOL = "Solana"
-    case ADA = "Cardano"
-    case DOGE = "Dogecoin"
-    case APE = "Apecoin"
-    case ETH = "Ethereum"
-    case SHIB = "Shiba Inu"
-}
-
 final class NftCardItem: Identifiable {
     private(set) var id: UUID?
     var name: String
@@ -25,6 +14,17 @@ final class NftCardItem: Identifiable {
     var image: String
     var price: Double
     var currency: Currency
+    var ratingImage: String {
+        switch rating {
+        case 1: return "Rating1"
+        case 2: return "Rating2"
+        case 3: return "Rating3"
+        case 4: return "Rating4"
+        case 5: return "Rating5"
+        default:
+            return "Rating0"
+        }
+    }
     
     init(id: UUID?, name: String, rating: Int, image: String, price: Double, currency: Currency) {
         self.id = id
@@ -34,7 +34,7 @@ final class NftCardItem: Identifiable {
         self.price = price
         self.currency = currency
     }
-    
+        
     static let mockItems = [
         NftCardItem(id: UUID(), name: "April", rating: 1, image: "April", price: 1.78, currency: .ETH),
         NftCardItem(id: UUID(), name: "Greena", rating: 3, image: "Greena", price: 1.78, currency: .ETH),
