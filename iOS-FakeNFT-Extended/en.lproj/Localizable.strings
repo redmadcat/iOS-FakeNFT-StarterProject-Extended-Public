@@ -10,3 +10,4 @@
 "ActionSheet.sorting.rating" = "По рейтингу";
 "ActionSheet.sorting.name" = "По названию";
 "ActionSheet.sorting.close" = "Закрыть";
+"NftCardItemCell.details.price" = "Цена";
