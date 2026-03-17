@@ -18,7 +18,10 @@ struct CartView: View {
                 sortButton
             }
             
-            nftCardList
+            nftCards.isEmpty ?
+                AnyView(CartEmptyView()) :
+                AnyView(nftCardList)
+            
             Spacer()
         }
         .background(.ypWhiteAD)
@@ -30,6 +33,7 @@ struct CartView: View {
         } label: {
             Image(.sort).renderingMode(.template)
         }
+        .opacity(nftCards.isEmpty ? 0 : 1)
         .padding(.trailing, 10)
         .frame(width: 42, height: 42)
         .buttonStyle(.plain)
