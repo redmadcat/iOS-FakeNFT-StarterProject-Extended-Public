@@ -14,3 +14,4 @@
 "NftCardItemCell.delete.title" = "Вы уверены, что хотите удалить объект из корзины?";
 "NftCardItemCell.delete.accept" = "Удалить";
 "NftCardItemCell.delete.cancel" = "Вернуться";
+"CartEmptyView.title" = "Корзина пуста";
