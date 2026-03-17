@@ -11,3 +11,6 @@
 "ActionSheet.sorting.name" = "По названию";
 "ActionSheet.sorting.close" = "Закрыть";
 "NftCardItemCell.details.price" = "Цена";
+"NftCardItemCell.delete.title" = "Вы уверены, что хотите удалить объект из корзины?";
+"NftCardItemCell.delete.accept" = "Удалить";
+"NftCardItemCell.delete.cancel" = "Вернуться";
