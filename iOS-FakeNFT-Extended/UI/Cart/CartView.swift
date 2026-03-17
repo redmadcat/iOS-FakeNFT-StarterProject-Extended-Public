@@ -25,7 +25,7 @@ struct CartView: View {
     
     private var sortButton: some View {
         Button {
-            showSortOptions = true
+            showSortOptions.toggle()
         } label: {
             Image(.sort).renderingMode(.template)
         }
@@ -39,11 +39,9 @@ struct CartView: View {
             Button("ActionSheet.sorting.rating") {
                 
             }
-
             Button("ActionSheet.sorting.name") {
                 
-            }
-            
+            }            
             Button("ActionSheet.sorting.close", role: .cancel) {
                             
             }
