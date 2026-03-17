@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CartView: View {
     @State private var showSortOptions = false
+    @State private var nftCards: [NftCardItem] = NftCardItem.mockItems
     
     var body: some View {
         VStack {
@@ -49,18 +50,22 @@ struct CartView: View {
     }
     
     private var nftCardList: some View {
-        List(NftCardItem.mockItems) { item in
-            NftCardItemCell(item: item)
-                .listRowBackground(Color.ypWhiteAD)
-                .listRowSeparator(.hidden)
-                .listRowInsets(
-                    EdgeInsets(
-                        top: 16,
-                        leading: 0,
-                        bottom: 16,
-                        trailing: 0
-                    )
+        List(nftCards) { item in
+            NftCardItemCell(item: item, onDelete: { result in
+                if let index = nftCards.firstIndex(of: result) {
+                    nftCards.remove(at: index)
+                }
+            })
+            .listRowBackground(Color.ypWhiteAD)
+            .listRowSeparator(.hidden)
+            .listRowInsets(
+                EdgeInsets(
+                    top: 16,
+                    leading: 0,
+                    bottom: 16,
+                    trailing: 0
                 )
+            )
         }
         .scrollContentBackground(.hidden)
         .listRowSpacing(0)

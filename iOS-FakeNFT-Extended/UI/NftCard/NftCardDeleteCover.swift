@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NftCardDeleteCover: View {
     @Binding var showDeleteCover: Bool
+    var onDelete: (() -> Void)
     
     var body: some View {
         VStack {
@@ -21,6 +22,8 @@ struct NftCardDeleteCover: View {
                 .padding(.top, 12)
             HStack {
                 Button {
+                    onDelete()
+                    showDeleteCover.toggle()
                 } label: {
                     Text("NftCardItemCell.delete.accept")
                         .font(.bodyRegular17)
@@ -57,5 +60,5 @@ struct NftCardDeleteCover: View {
 }
 
 #Preview {
-    NftCardDeleteCover(showDeleteCover: .constant(false))
+    NftCardDeleteCover(showDeleteCover: .constant(false), onDelete: { })
 }

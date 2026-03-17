@@ -10,6 +10,7 @@ import SwiftUI
 struct NftCardItemCell: View {
     @State private var showDeleteCover = false
     var item: NftCardItem
+    var onDelete: ((NftCardItem) -> Void)
     
     var body: some View {
         HStack(spacing: 0) {
@@ -54,17 +55,18 @@ struct NftCardItemCell: View {
     private var deleteView: some View {
         Button {
             showDeleteCover.toggle()
-            print("delete fired")
         } label: {
             Image(.cartDelete).renderingMode(.template)
         }
         .buttonStyle(.plain)
         .fullScreenCover(isPresented: $showDeleteCover) {
-            NftCardDeleteCover(showDeleteCover: $showDeleteCover)
+            NftCardDeleteCover(showDeleteCover: $showDeleteCover, onDelete: {
+                onDelete(item)
+            })
         }
     }
 }
 
 #Preview {
-    NftCardItemCell(item: NftCardItem.mockItems[0])
+    NftCardItemCell(item: NftCardItem.mockItems[0], onDelete: { _ in })
 }
