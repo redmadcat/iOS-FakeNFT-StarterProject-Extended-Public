@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 
 extension UIFont {
     // Ниже приведены примеры шрифтов, настоящие шрифты надо взять из фигмы
@@ -16,4 +17,11 @@ extension UIFont {
     // Caption Fonts
     static var caption1 = UIFont.systemFont(ofSize: 15, weight: .regular)
     static var caption2 = UIFont.systemFont(ofSize: 13, weight: .regular)
+    
+    
+}
+
+extension Font {
+    static var bodyBold17 = Font.system(size: 17, weight: .bold)
+    static var bodyRegular13 = Font.system(size: 13, weight: .regular)
 }
