@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NftCardItemCell: View {
+    @State private var showFullScreenCover = false
     var item: NftCardItem
     
     var body: some View {
@@ -52,13 +53,53 @@ struct NftCardItemCell: View {
     
     private var deleteView: some View {
         Button {
+            showFullScreenCover.toggle()
             print("delete fired")
         } label: {
             Image(.cartDelete).renderingMode(.template)
         }
         .buttonStyle(.plain)
+        .fullScreenCover(isPresented: $showFullScreenCover) {
+            VStack {
+                Image(.deleteStub)
+                Text("NftCardItemCell.delete.title")
+                HStack {
+                    Button {
+                    } label: {
+                        Text("NftCardItemCell.delete.action")
+                    }
+                    
+                    Button {
+                        showFullScreenCover.toggle()
+                    } label: {
+                        Text("NftCardItemCell.delete.cancel")
+                    }
+                }
+            }
+            .frame(
+                  minWidth: 0,
+                  maxWidth: .infinity,
+                  minHeight: 0,
+                  maxHeight: .infinity,
+                  alignment: .center
+                )
+            .background(BackgroundBlurView())
+        }
     }
 }
+
+struct BackgroundBlurView: UIViewRepresentable {
+    func makeUIView(context: Context) -> UIView {
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        DispatchQueue.main.async {
+            view.superview?.superview?.backgroundColor = .clear
+        }
+        return view
+    }
+
+    func updateUIView(_ uiView: UIView, context: Context) {}
+}
+
 
 #Preview {
     NftCardItemCell(item: NftCardItem.mockItems[0])
