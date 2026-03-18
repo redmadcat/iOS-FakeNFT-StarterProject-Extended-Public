@@ -191,6 +191,13 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		94D0C1042F6AC9580031186B /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Payment;
+			sourceTree = "<group>";
+		};
 		ABC5E15F2C31F5AF002B4068 = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +337,7 @@
 		ABC5E1B32C31FC03002B4068 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				94D0C1042F6AC9580031186B /* Payment */,
 				94CDDC5D2F6977DA003E255F /* NftCard */,
 				940429982F6443C90017EC08 /* Cart */,
 				ABC5E16D2C31F5AF002B4068 /* ContentView.swift */,

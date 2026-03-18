@@ -1,25 +1,39 @@
 import SwiftUI
 
 struct TabBarView: View {
+    @State private var router = Router.shared
+    
     var body: some View {
-        TabView {
-            TestCatalogView()
-                .tabItem {
-                    Label(
-                        NSLocalizedString("Tab.catalog", comment: ""),
-                        systemImage: "square.stack.3d.up.fill"
-                    )
+        NavigationStack(path: $router.endpoint) {
+            TabView {
+                TestCatalogView()
+                    .tabItem {
+                        Label(
+                            NSLocalizedString("Tab.catalog", comment: ""),
+                            systemImage: "square.stack.3d.up.fill"
+                        )
+                    }
+                    .backgroundStyle(.background)
+                CartView()
+                    .tabItem {
+                        Image(.cart).renderingMode(.template)
+                        Text("Tab.cart")
+                    }
+                    .backgroundStyle(.background)
+            }
+            .navigationDestination(for: RouteEndpoint.self) { endpoint in
+                switch endpoint {
+                case .payment:
+                    Text("Payment")
+                case .cart:
+                    Text("Cart")
+                case .agreement:
+                    Text("Agreement")
                 }
-                .backgroundStyle(.background)
-            CartView()
-                .tabItem {
-                    Image(.cart).renderingMode(.template)
-                    Text("Tab.cart")
-                }
-                .backgroundStyle(.background)
-        }
-        .onAppear() {
-            UITabBar.appearance().unselectedItemTintColor = .ypBlackAD
+            }
+            .onAppear() {
+                UITabBar.appearance().unselectedItemTintColor = .ypBlackAD
+            }
         }
     }
 }
