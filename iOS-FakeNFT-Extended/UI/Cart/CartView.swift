@@ -89,7 +89,7 @@ struct CartView: View {
             .padding(16)
             
             Button {
-                
+                Router.shared.toPayment()
             } label: {
                 Text("CartView.total.payment")
                     .font(.bodyBold17)
