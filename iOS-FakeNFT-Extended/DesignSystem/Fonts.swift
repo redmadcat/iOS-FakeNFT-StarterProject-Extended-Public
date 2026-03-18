@@ -24,5 +24,6 @@ extension UIFont {
 extension Font {
     static var bodyBold17 = Font.system(size: 17, weight: .bold)
     static var bodyRegular13 = Font.system(size: 13, weight: .regular)
+    static var bodyRegular15 = Font.system(size: 15, weight: .regular)
     static var bodyRegular17 = Font.system(size: 17, weight: .regular)
 }
