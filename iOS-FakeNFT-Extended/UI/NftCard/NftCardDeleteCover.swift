@@ -56,6 +56,7 @@ struct NftCardDeleteCover: View {
               alignment: .center
             )
         .background(BackgroundBlurView())
+        .ignoresSafeArea()
     }
 }
 
