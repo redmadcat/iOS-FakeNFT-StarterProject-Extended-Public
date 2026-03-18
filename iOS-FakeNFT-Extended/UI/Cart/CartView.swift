@@ -9,14 +9,11 @@ import SwiftUI
 
 struct CartView: View {
     @State private var showSortOptions = false
-    @State private var nftCards: [NftCardItem] = NftCardItem.mockItems
-    private var currencyStub: String {
-        nftCards.isEmpty ? "" :  String(describing: nftCards[0].currency)
-    }
+    @State private var context = CartViewModel()
     
     var body: some View {
         VStack {
-            if nftCards.isEmpty {
+            if context.nftCards.isEmpty {
                 CartEmptyView()
             } else {
                 HStack {
@@ -56,11 +53,9 @@ struct CartView: View {
     }
     
     private var nftCardList: some View {
-        List(nftCards) { item in
-            NftCardItemCell(item: item, onDelete: { result in
-                if let index = nftCards.firstIndex(of: result) {
-                    nftCards.remove(at: index)
-                }
+        List(context.nftCards) { item in
+            NftCardItemCell(item: item, onDelete: {
+                context.remove(item: item)
             })
             .listRowBackground(Color.ypWhiteAD)
             .listRowSeparator(.hidden)
@@ -81,12 +76,12 @@ struct CartView: View {
     private var totalPayment: some View {
         HStack {
             VStack {
-                Text(verbatim: nftCards.count.description + " NFT")
+                Text(context.totalCount)
                     .font(.bodyRegular15)
                     .foregroundStyle(.ypBlackAD)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text(verbatim: nftCards.reduce(0) { $0 + $1.price }.description + " " + currencyStub)
+                Text(context.totalPrice)
                     .font(.bodyBold17)
                     .foregroundStyle(.ypGreen)
                     .frame(maxWidth: .infinity, alignment: .leading)

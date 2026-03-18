@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NftCardDeleteCover: View {
     @Binding var showDeleteCover: Bool
-    var onDelete: (() -> Void)
+    var onDelete: () -> Void
     
     var body: some View {
         VStack {
