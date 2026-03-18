@@ -7,10 +7,11 @@
 
 import SwiftUI
 
+@MainActor
 struct BackgroundBlurView: UIViewRepresentable {
     func makeUIView(context: Context) -> UIView {
         let view = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-        DispatchQueue.main.async {
+        Task {
             view.superview?.superview?.backgroundColor = .clear
         }
         return view
