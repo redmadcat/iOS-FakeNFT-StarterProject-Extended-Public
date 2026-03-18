@@ -10,19 +10,22 @@ import SwiftUI
 struct CartView: View {
     @State private var showSortOptions = false
     @State private var nftCards: [NftCardItem] = NftCardItem.mockItems
+    private var currencyStub: String {
+        nftCards.isEmpty ? "" :  String(describing: nftCards[0].currency)
+    }
     
     var body: some View {
         VStack {
-            HStack {
-                Spacer()
-                sortButton
+            if nftCards.isEmpty {
+                CartEmptyView()
+            } else {
+                HStack {
+                    Spacer()
+                    sortButton
+                }
+                nftCardList
+                totalPayment
             }
-            
-            nftCards.isEmpty ?
-                AnyView(CartEmptyView()) :
-                AnyView(nftCardList)
-            
-            Spacer()
         }
         .background(.ypWhiteAD)
     }
@@ -33,7 +36,6 @@ struct CartView: View {
         } label: {
             Image(.sort).renderingMode(.template)
         }
-        .opacity(nftCards.isEmpty ? 0 : 1)
         .padding(.trailing, 10)
         .frame(width: 42, height: 42)
         .buttonStyle(.plain)
@@ -65,14 +67,61 @@ struct CartView: View {
             .listRowInsets(
                 EdgeInsets(
                     top: 16,
-                    leading: 0,
+                    leading: 16,
                     bottom: 16,
-                    trailing: 0
+                    trailing: 16
                 )
             )
         }
         .scrollContentBackground(.hidden)
         .listRowSpacing(0)
+        .listStyle(.plain)
+    }
+    
+    private var totalPayment: some View {
+        HStack {
+            VStack {
+                Text(verbatim: nftCards.count.description + " NFT")
+                    .font(.bodyRegular15)
+                    .foregroundStyle(.ypBlackAD)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Text(verbatim: nftCards.reduce(0) { $0 + $1.price }.description + " " + currencyStub)
+                    .font(.bodyBold17)
+                    .foregroundStyle(.ypGreen)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(16)
+            
+            Button {
+                
+            } label: {
+                Text("CartView.total.payment")
+                    .font(.bodyBold17)
+                    .foregroundStyle(.ypWhiteAD)
+            }
+            .frame(width: 240, height: 44)
+            .background(.ypBlackAD)
+            .buttonStyle(.plain)
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .padding(16)
+        }
+        .frame(
+              minWidth: 0,
+              maxWidth: .infinity,
+              minHeight: 0,
+              maxHeight: 76,
+              alignment: .bottom
+            )
+        .background(.ypLightGreyAD)
+        .clipShape(
+            .rect(
+                    topLeadingRadius: 12,
+                    bottomLeadingRadius: 0,
+                    bottomTrailingRadius: 0,
+                    topTrailingRadius: 12
+                )
+        )
     }
 }
 
