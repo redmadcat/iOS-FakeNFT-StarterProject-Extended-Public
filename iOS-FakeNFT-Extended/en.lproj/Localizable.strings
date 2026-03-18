@@ -15,3 +15,4 @@
 "NftCardItemCell.delete.accept" = "Удалить";
 "NftCardItemCell.delete.cancel" = "Вернуться";
 "CartEmptyView.title" = "Корзина пуста";
+"CartView.total.payment" = "К оплате";
