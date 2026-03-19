@@ -12,19 +12,30 @@ struct CartView: View {
     @State private var context = CartViewModel()
     
     var body: some View {
-        VStack {
-            if context.nftCards.isEmpty {
-                CartEmptyView()
-            } else {
-                HStack {
-                    Spacer()
-                    sortButton
+        ZStack {
+            VStack {
+                if context.emptyCart {
+                    CartEmptyView()
+                } else {
+                    HStack {
+                        Spacer()
+                        sortButton
+                    }
+                    nftCardList
+                    totalPayment
                 }
-                nftCardList
-                totalPayment
             }
+            .background(.ypWhiteAD)
+            .task {
+                await context.load()
+            }
+
+            ProgressView()
+                .frame(width: 82, height: 82)
+                .background(Color.ypLightGreyAD)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .opacity(context.status == .loading ? 1 : 0)
         }
-        .background(.ypWhiteAD)
     }
     
     private var sortButton: some View {
@@ -33,6 +44,7 @@ struct CartView: View {
         } label: {
             Image(.sort).renderingMode(.template)
         }
+        .disabled(context.status == .loading)
         .padding(.trailing, 10)
         .frame(width: 42, height: 42)
         .buttonStyle(.plain)
@@ -95,6 +107,7 @@ struct CartView: View {
                     .font(.largeBold)
                     .foregroundStyle(.ypWhiteAD)
             }
+            .disabled(context.status == .loading)
             .frame(width: 240, height: 44)
             .background(.ypBlackAD)
             .buttonStyle(.plain)
