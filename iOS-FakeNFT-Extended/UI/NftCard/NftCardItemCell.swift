@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct NftCardItemCell: View {
     @State private var showDeleteCover = false
-    var item: NftCardItem
+    var item: Nft
     var onDelete: () -> Void
     
     var body: some View {
@@ -23,10 +24,11 @@ struct NftCardItemCell: View {
     }
         
     private var imageView: some View {
-        Image(item.image)
+        KFImage(item.images.first)
             .resizable()
             .scaledToFit()
             .frame(width: 108, height: 108)
+            .clipShape(RoundedRectangle(cornerRadius: 16))
     }
     
     private var detailsView: some View {
@@ -34,14 +36,14 @@ struct NftCardItemCell: View {
             Text(item.name)
                 .font(.largeBold)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Image(item.ratingImage)
+            Image(ratingImage(rating: item.rating))
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text("NftCardItemCell.details.price")
                 .font(.smallRegular)
                 .frame(maxWidth: .infinity, alignment: .leading)
             HStack {
                 Text(item.price.description)
-                Text(String(describing: item.currency))
+                Text("ETH")
             }
             .font(.largeBold)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -60,11 +62,19 @@ struct NftCardItemCell: View {
         }
         .buttonStyle(.plain)
         .fullScreenCover(isPresented: $showDeleteCover) {
-            NftCardDeleteCover(showDeleteCover: $showDeleteCover, onDelete: onDelete)
+            NftCardDeleteCover(showDeleteCover: $showDeleteCover, onDelete: onDelete, imageUrl: item.images.first)
         }
     }
-}
-
-#Preview {
-    NftCardItemCell(item: NftCardItem.mockItems[0], onDelete: { })
+    
+    private func ratingImage(rating: Int) -> String {
+        switch rating {
+        case 1: return "Rating1"
+        case 2: return "Rating2"
+        case 3: return "Rating3"
+        case 4: return "Rating4"
+        case 5: return "Rating5"
+        default:
+            return "Rating0"
+        }
+    }
 }
