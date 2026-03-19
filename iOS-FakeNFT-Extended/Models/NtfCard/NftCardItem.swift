@@ -26,7 +26,13 @@ final class NftCardItem: Identifiable, Equatable {
         }
     }
     
-    init(id: UUID?, name: String, rating: Int, image: String, price: Double, currency: Currency) {
+    init(id: UUID?,
+         name: String,
+         rating: Int,
+         image: String,
+         price: Double,
+         currency: Currency)
+    {
         self.id = id
         self.name = name
         self.rating = rating
