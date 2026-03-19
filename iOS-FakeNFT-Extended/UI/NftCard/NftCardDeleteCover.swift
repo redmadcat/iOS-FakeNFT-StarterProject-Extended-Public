@@ -17,7 +17,7 @@ struct NftCardDeleteCover: View {
 
             Text("NftCardItemCell.delete.title")
                 .multilineTextAlignment(.center)
-                .font(.bodyRegular13)
+                .font(.smallRegular)
                 .frame(width: 180)
                 .padding(.top, 12)
             HStack {
@@ -26,7 +26,7 @@ struct NftCardDeleteCover: View {
                     showDeleteCover.toggle()
                 } label: {
                     Text("NftCardItemCell.delete.accept")
-                        .font(.bodyRegular17)
+                        .font(.largeRegular)
                         .foregroundStyle(.ypRed)
                 }
                 .frame(width: 127, height: 44)
@@ -38,7 +38,7 @@ struct NftCardDeleteCover: View {
                     showDeleteCover.toggle()
                 } label: {
                     Text("NftCardItemCell.delete.cancel")
-                        .font(.bodyRegular17)
+                        .font(.largeRegular)
                         .foregroundStyle(.ypWhiteAD)
                 }
                 .frame(width: 127, height: 44)

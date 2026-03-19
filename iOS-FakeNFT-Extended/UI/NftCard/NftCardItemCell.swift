@@ -32,18 +32,18 @@ struct NftCardItemCell: View {
     private var detailsView: some View {
         VStack {
             Text(item.name)
-                .font(.bodyBold17)
+                .font(.largeBold)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Image(item.ratingImage)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text("NftCardItemCell.details.price")
-                .font(.bodyRegular13)
+                .font(.smallRegular)
                 .frame(maxWidth: .infinity, alignment: .leading)
             HStack {
                 Text(item.price.description)
                 Text(String(describing: item.currency))
             }
-            .font(.bodyBold17)
+            .font(.largeBold)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(width: 120, height: 92)

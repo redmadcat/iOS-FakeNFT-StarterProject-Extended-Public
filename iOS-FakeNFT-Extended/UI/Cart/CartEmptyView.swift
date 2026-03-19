@@ -11,7 +11,7 @@ struct CartEmptyView: View {
     var body: some View {
         VStack {
             Text("CartEmptyView.title")
-                .font(.bodyBold17)
+                .font(.largeBold)
                 .foregroundStyle(.ypBlackAD)
         }
         .frame(
