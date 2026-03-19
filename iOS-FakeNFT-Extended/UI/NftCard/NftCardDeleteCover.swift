@@ -6,14 +6,20 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct NftCardDeleteCover: View {
     @Binding var showDeleteCover: Bool
     var onDelete: () -> Void
+    var imageUrl: URL?
     
     var body: some View {
         VStack {
-            Image(.deleteStub)
+            KFImage(imageUrl)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 108, height: 108)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
 
             Text("NftCardItemCell.delete.title")
                 .multilineTextAlignment(.center)
