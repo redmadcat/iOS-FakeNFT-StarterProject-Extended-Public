@@ -44,7 +44,7 @@ struct CartView: View {
         } label: {
             Image(.sort).renderingMode(.template)
         }
-        .disabled(context.status == .loading)
+        .disabled(context.nftCards.isEmpty)
         .padding(.trailing, 10)
         .frame(width: 42, height: 42)
         .buttonStyle(.plain)
@@ -107,7 +107,7 @@ struct CartView: View {
                     .font(.largeBold)
                     .foregroundStyle(.ypWhiteAD)
             }
-            .disabled(context.status == .loading)
+            .disabled(context.nftCards.isEmpty)
             .frame(width: 240, height: 44)
             .background(.ypBlackAD)
             .buttonStyle(.plain)
