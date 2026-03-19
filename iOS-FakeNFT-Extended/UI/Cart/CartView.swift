@@ -77,12 +77,12 @@ struct CartView: View {
         HStack {
             VStack {
                 Text(context.totalCount)
-                    .font(.bodyRegular15)
+                    .font(.mediumRegular)
                     .foregroundStyle(.ypBlackAD)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text(context.totalPrice)
-                    .font(.bodyBold17)
+                    .font(.largeBold)
                     .foregroundStyle(.ypGreen)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
@@ -92,7 +92,7 @@ struct CartView: View {
                 
             } label: {
                 Text("CartView.total.payment")
-                    .font(.bodyBold17)
+                    .font(.largeBold)
                     .foregroundStyle(.ypWhiteAD)
             }
             .frame(width: 240, height: 44)

@@ -17,13 +17,11 @@ extension UIFont {
     // Caption Fonts
     static var caption1 = UIFont.systemFont(ofSize: 15, weight: .regular)
     static var caption2 = UIFont.systemFont(ofSize: 13, weight: .regular)
-    
-    
 }
 
 extension Font {
-    static var bodyBold17 = Font.system(size: 17, weight: .bold)
-    static var bodyRegular13 = Font.system(size: 13, weight: .regular)
-    static var bodyRegular15 = Font.system(size: 15, weight: .regular)
-    static var bodyRegular17 = Font.system(size: 17, weight: .regular)
+    static var smallRegular = Font.system(size: 13, weight: .regular)
+    static var mediumRegular = Font.system(size: 15, weight: .regular)
+    static var largeBold = Font.system(size: 17, weight: .bold)
+    static var largeRegular = Font.system(size: 17, weight: .regular)
 }
