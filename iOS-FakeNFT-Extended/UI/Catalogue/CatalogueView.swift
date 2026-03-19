@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CatalogueView: View {
     @State private var showSort = false
-    var collectionList: [Collections] = []
+    var collectionList: [CollectionModel] = []
     var body: some View {
         VStack{
             HStack{
@@ -34,9 +34,9 @@ struct CatalogueView: View {
                                 
                             }label:{
                                 CatalogueListRowView(
-                                    imageURL: collection.image,
-                                    title: collection.title,
-                                    imageCount: collection.imageCount
+                                    imageURL: collection.cover,
+                                    title: collection.name,
+                                    imageCount: collection.ntfs.count
                                 )
                             }
                             .buttonStyle(.plain)
@@ -69,6 +69,6 @@ struct CatalogueView: View {
 
 
 #Preview {
-    let collectionList: [Collections] = Collections.mock
+    let collectionList = CollectionModel.mock
     CatalogueView(collectionList: collectionList)
 }
