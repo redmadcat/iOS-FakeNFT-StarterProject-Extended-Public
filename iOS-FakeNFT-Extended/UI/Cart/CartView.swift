@@ -14,15 +14,12 @@ struct CartView: View {
     var body: some View {
         ZStack {
             VStack {
-                if context.emptyCart {
+                if context.noItems {
                     CartEmptyView()
                 } else {
-                    HStack {
-                        Spacer()
-                        sortButton
-                    }
+                    nftSortMenu
                     nftCardList
-                    totalPayment
+                    nftTotalPay
                 }
             }
             .background(.ypWhiteAD)
@@ -30,42 +27,39 @@ struct CartView: View {
                 await context.load()
             }
 
-            ProgressView()
-                .frame(width: 82, height: 82)
-                .background(Color.ypLightGreyAD)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .opacity(context.status == .loading ? 1 : 0)
+            progressView
         }
     }
     
-    private var sortButton: some View {
-        Button {
-            showSortOptions.toggle()
-        } label: {
-            Image(.sort).renderingMode(.template)
-        }
-        .disabled(context.nftCards.isEmpty)
-        .padding(.trailing, 10)
-        .frame(width: 42, height: 42)
-        .buttonStyle(.plain)
-        .confirmationDialog("ActionSheet.sorting.title", isPresented: $showSortOptions, titleVisibility: .visible) {
-            Button("ActionSheet.sorting.price") {
-                context.sortPredicate = .price
+    private var nftSortMenu: some View {
+        HStack {
+            Spacer()
+            Button {
+                showSortOptions.toggle()
+            } label: {
+                Image(.sort).renderingMode(.template)
             }
-            Button("ActionSheet.sorting.rating") {
-                context.sortPredicate = .rating
-            }
-            Button("ActionSheet.sorting.name") {
-                context.sortPredicate = .name
-            }
-            Button("ActionSheet.sorting.close", role: .cancel) {
-                            
+            .disabled(context.actionAvailability)
+            .padding(.trailing, 10)
+            .frame(width: 42, height: 42)
+            .buttonStyle(.plain)
+            .confirmationDialog("ActionSheet.sorting.title", isPresented: $showSortOptions, titleVisibility: .visible) {
+                Button("ActionSheet.sorting.price") {
+                    context.sort(predicate: .price)
+                }
+                Button("ActionSheet.sorting.rating") {
+                    context.sort(predicate: .rating)
+                }
+                Button("ActionSheet.sorting.name") {
+                    context.sort(predicate: .name)
+                }
+                Button("ActionSheet.sorting.close", role: .cancel, action: {})
             }
         }
     }
     
     private var nftCardList: some View {
-        List(context.nftCardsSorted) { item in
+        List(context.nftCards) { item in
             NftCardItemCell(item: item, onDelete: {
                 context.remove(item: item)
             })
@@ -85,7 +79,7 @@ struct CartView: View {
         .listStyle(.plain)
     }
     
-    private var totalPayment: some View {
+    private var nftTotalPay: some View {
         HStack {
             VStack {
                 Text(context.totalCount)
@@ -107,7 +101,7 @@ struct CartView: View {
                     .font(.largeBold)
                     .foregroundStyle(.ypWhiteAD)
             }
-            .disabled(context.nftCards.isEmpty)
+            .disabled(context.actionAvailability)
             .frame(width: 240, height: 44)
             .background(.ypBlackAD)
             .buttonStyle(.plain)
@@ -115,21 +109,29 @@ struct CartView: View {
             .padding(16)
         }
         .frame(
-              minWidth: 0,
-              maxWidth: .infinity,
-              minHeight: 0,
-              maxHeight: 76,
-              alignment: .bottom
-            )
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: 76,
+            alignment: .bottom
+        )
         .background(.ypLightGreyAD)
         .clipShape(
             .rect(
-                    topLeadingRadius: 12,
-                    bottomLeadingRadius: 0,
-                    bottomTrailingRadius: 0,
-                    topTrailingRadius: 12
-                )
+                topLeadingRadius: 12,
+                bottomLeadingRadius: 0,
+                bottomTrailingRadius: 0,
+                topTrailingRadius: 12
+            )
         )
+    }
+    
+    private var progressView: some View {
+        ProgressView()
+            .frame(width: 82, height: 82)
+            .background(Color.ypLightGreyAD)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .opacity(context.status == .loading ? 1 : 0)
     }
 }
 
