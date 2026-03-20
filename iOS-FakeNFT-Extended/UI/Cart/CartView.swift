@@ -50,14 +50,14 @@ struct CartView: View {
         .buttonStyle(.plain)
         .confirmationDialog("ActionSheet.sorting.title", isPresented: $showSortOptions, titleVisibility: .visible) {
             Button("ActionSheet.sorting.price") {
-                
+                context.sortPredicate = .price
             }
             Button("ActionSheet.sorting.rating") {
-                
+                context.sortPredicate = .rating
             }
             Button("ActionSheet.sorting.name") {
-                
-            }            
+                context.sortPredicate = .name
+            }
             Button("ActionSheet.sorting.close", role: .cancel) {
                             
             }
@@ -65,7 +65,7 @@ struct CartView: View {
     }
     
     private var nftCardList: some View {
-        List(context.nftCards) { item in
+        List(context.nftCardsSorted) { item in
             NftCardItemCell(item: item, onDelete: {
                 context.remove(item: item)
             })
