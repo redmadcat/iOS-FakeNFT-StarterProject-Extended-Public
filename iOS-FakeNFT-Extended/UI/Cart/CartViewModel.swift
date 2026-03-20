@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum sort {
+enum sortBy {
     case price
     case rating
     case name
@@ -16,12 +16,30 @@ enum sort {
 @MainActor
 @Observable
 final class CartViewModel {
-    var sortPredicate = sort.name
-    var status: APIResponseStatus = .default
-    var nftCards: [Nft] = []
-    var nftCardsSorted: [Nft] {
-        return nftCards.sorted {
-            switch sortPredicate {
+    private(set) var nftCards: [Nft] = []
+    private(set) var status: APIResponseStatus = .default
+        
+    var totalCount: String {
+        nftCards.count.description + " NFT"
+    }
+    
+    var totalPrice: String {
+        let price = nftCards.reduce(0) { $0 + $1.price }
+        return String(format: "%.2f", price) + " " + (nftCards.isEmpty ? "" : "ETH")
+    }
+    
+    var noItems: Bool {
+        status == .success && nftCards.isEmpty ||
+        status == .failure
+    }
+    
+    var actionAvailability: Bool {
+        nftCards.isEmpty
+    }
+    
+    func sort(predicate: sortBy) {
+        nftCards = nftCards.sorted {
+            switch predicate {
             case .price:
                 $0.price < $1.price
             case .rating:
@@ -31,19 +49,7 @@ final class CartViewModel {
             }
         }
     }
-    var totalCount: String {
-        nftCards.count.description + " NFT"
-    }
-    var totalPrice: String {
-        let price = nftCards.reduce(0) { $0 + $1.price }
-        return String(format: "%.2f", price) + " " + (nftCards.isEmpty ? "" : "ETH")
-    }
     
-    var emptyCart: Bool {
-        status == .success && nftCards.isEmpty ||
-        status == .failure
-    }
-                
     func remove(item: Nft) {
         nftCards.removeAll(where: { $0.id == item.id })
     }
