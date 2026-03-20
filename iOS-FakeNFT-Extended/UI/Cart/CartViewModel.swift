@@ -7,11 +7,30 @@
 
 import SwiftUI
 
+enum sort {
+    case price
+    case rating
+    case name
+}
+
 @MainActor
 @Observable
 final class CartViewModel {
+    var sortPredicate = sort.name
     var status: APIResponseStatus = .default
     var nftCards: [Nft] = []
+    var nftCardsSorted: [Nft] {
+        return nftCards.sorted {
+            switch sortPredicate {
+            case .price:
+                $0.price < $1.price
+            case .rating:
+                $0.rating > $1.rating
+            case .name:
+                $0.name < $1.name
+            }
+        }
+    }
     var totalCount: String {
         nftCards.count.description + " NFT"
     }
@@ -21,7 +40,8 @@ final class CartViewModel {
     }
     
     var emptyCart: Bool {
-        status == .success && nftCards.isEmpty
+        status == .success && nftCards.isEmpty ||
+        status == .failure
     }
                 
     func remove(item: Nft) {
