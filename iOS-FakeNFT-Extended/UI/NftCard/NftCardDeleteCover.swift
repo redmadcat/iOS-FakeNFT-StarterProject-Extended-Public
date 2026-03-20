@@ -15,11 +15,7 @@ struct NftCardDeleteCover: View {
     
     var body: some View {
         VStack {
-            KFImage(imageUrl)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 108, height: 108)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+            NftCardImage(imageUrl: imageUrl)
 
             Text("NftCardItemCell.delete.title")
                 .multilineTextAlignment(.center)
@@ -55,12 +51,12 @@ struct NftCardDeleteCover: View {
             .padding(.top, 20)
         }
         .frame(
-              minWidth: 0,
-              maxWidth: .infinity,
-              minHeight: 0,
-              maxHeight: .infinity,
-              alignment: .center
-            )
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: .infinity,
+            alignment: .center
+        )
         .background(BackgroundBlurView())
         .ignoresSafeArea()
     }

@@ -15,23 +15,19 @@ struct NftCardItemCell: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            imageView
-            detailsView
+            nftCardImage
+            nftDetails
             Spacer()
             deleteView
         }
         .frame(height: 108)
     }
         
-    private var imageView: some View {
-        KFImage(item.images.first)
-            .resizable()
-            .scaledToFit()
-            .frame(width: 108, height: 108)
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+    private var nftCardImage: some View {
+        NftCardImage(imageUrl: item.images.first)
     }
     
-    private var detailsView: some View {
+    private var nftDetails: some View {
         VStack {
             Text(item.name)
                 .font(.largeBold)
@@ -62,7 +58,9 @@ struct NftCardItemCell: View {
         }
         .buttonStyle(.plain)
         .fullScreenCover(isPresented: $showDeleteCover) {
-            NftCardDeleteCover(showDeleteCover: $showDeleteCover, onDelete: onDelete, imageUrl: item.images.first)
+            NftCardDeleteCover(showDeleteCover: $showDeleteCover,
+                               onDelete: onDelete,
+                               imageUrl: item.images.first)
         }
     }
     
