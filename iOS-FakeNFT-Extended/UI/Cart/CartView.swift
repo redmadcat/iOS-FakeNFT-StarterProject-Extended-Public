@@ -61,7 +61,9 @@ struct CartView: View {
     private var nftCardList: some View {
         List(context.nftCards) { item in
             NftCardItemCell(item: item, onDelete: {
-                context.remove(item: item)
+                Task {
+                    await context.remove(item: item)
+                }
             })
             .listRowBackground(Color.ypWhiteAD)
             .listRowSeparator(.hidden)

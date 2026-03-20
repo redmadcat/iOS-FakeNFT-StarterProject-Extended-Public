@@ -18,7 +18,7 @@ enum sortBy {
 final class CartViewModel {
     private(set) var nftCards: [Nft] = []
     private(set) var status: APIResponseStatus = .default
-        
+    
     var totalCount: String {
         nftCards.count.description + " NFT"
     }
@@ -29,8 +29,8 @@ final class CartViewModel {
     }
     
     var noItems: Bool {
-        status == .success && nftCards.isEmpty ||
-        status == .failure
+        (status == .success ||
+         status == .failure) && nftCards.isEmpty
     }
     
     var actionAvailability: Bool {
@@ -50,15 +50,24 @@ final class CartViewModel {
         }
     }
     
-    func remove(item: Nft) {
-        nftCards.removeAll(where: { $0.id == item.id })
+    func remove(item: Nft) async {
+        do {
+            status = .loading
+            _ = try await DefaultNetworkClient().send(request: NftPutOrderRequest(nfts: [item.id]))
+            
+            nftCards.removeAll(where: { $0.id == item.id })
+            status = .success
+        } catch {
+            print(error)
+            status = .failure
+        }
     }
     
     func load() async {
         var result: NftOrder
         do {
             status = .loading
-            result = try await DefaultNetworkClient().send(request: NftByOrderRequest())
+            result = try await DefaultNetworkClient().send(request: NftGetOrderRequest())
             let nfts = result.nfts.isEmpty ? NftOrder.mock : result.nfts
             
             nftCards.removeAll()
