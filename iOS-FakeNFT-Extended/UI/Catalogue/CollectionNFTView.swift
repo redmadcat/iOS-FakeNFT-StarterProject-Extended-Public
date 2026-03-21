@@ -10,19 +10,31 @@ import SwiftUI
 struct CollectionNFTView: View {
     @Binding var vm: CollectionNFTViewModel
     var body: some View {
-        ScrollView(showsIndicators: false){
-            
-            VStack(alignment: .leading){
-                titleImage
-                nameCollection
-                autor
-                description
-                collection
+        ZStack(alignment: .top) {
+            ScrollView(showsIndicators: false){
+                
+                VStack(alignment: .leading){
+                    titleImage
+                    nameCollection
+                    autor
+                    description
+                    collection
+                }
             }
-            
-            
+            .ignoresSafeArea()
+            Button {
+               
+            } label: {
+                HStack {
+                    
+                    Image(systemName: "chevron.left")
+                        .foregroundStyle(.black)
+                        .frame(height: 42)
+                        .padding(.leading, 16)
+                    Spacer()
+                }
+            }
         }
-        .ignoresSafeArea()
     }
     
     var titleImage: some View {
@@ -39,6 +51,7 @@ struct CollectionNFTView: View {
             )
             .padding(.bottom, 16)
     }
+    
     var nameCollection: some View {
         Text(vm.collection.name)
             .font(.system(size: 22, weight: .bold))
@@ -47,15 +60,16 @@ struct CollectionNFTView: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 8)
     }
+    
     var autor: some View {
         Text("Автор коллекции: \(vm.collection.author)")
             .font(.system(size: 13, weight: .regular))
             .frame(maxWidth: .infinity, alignment: .leading)
             .frame(height: 28)
             .padding(.horizontal, 16)
-        
-        
     }
+    
+    
     var description: some View {
         Text(vm.collection.description)
             .font(.system(size: 13, weight: .regular))
@@ -86,7 +100,7 @@ struct CollectionNFTView: View {
         .padding(.horizontal, 10 )
         .padding(.top, 24)
     }
-
+    
 }
 
 #Preview {

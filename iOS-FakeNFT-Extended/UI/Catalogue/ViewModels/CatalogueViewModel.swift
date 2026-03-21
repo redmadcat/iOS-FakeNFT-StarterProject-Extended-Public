@@ -17,32 +17,41 @@ final class CatalogueViewModel{
     init(collectionsService: CollectionsService) {
         self.collectionsService = collectionsService
     }
+    private(set) var collections: [CollectionModel] = []
+    private var currentTask: Task<Void, Never>?
     
     let sortByName = "name,asc"
     let sortByCount = "nfts,desc"
-    var collections: [CollectionModel] = []
+ 
     func loadCollections() async {
-        do {
-            let newCollections = try await collectionsService.loadCollections(page: page, sortBy: sortBy)
-            collections.append(contentsOf: newCollections)
-            self.page += 1
-            print(collections)
-        } catch {
-            print(error)
-            
+        currentTask?.cancel()
+        currentTask = Task {
+            do {
+                let newCollections = try await collectionsService.loadCollections(page: page, sortBy: sortBy)
+                collections.append(contentsOf: newCollections)
+                self.page += 1
+                print(collections)
+            } catch {
+                if Task.isCancelled { return }
+                print(error)
+            }
         }
+        await currentTask?.value
     }
+
     func loadSortByName() async {
+        currentTask?.cancel()
         sortBy = sortByName
         page = 0
-        self.collections.removeAll()
+        collections.removeAll()
         await loadCollections()
     }
-    
+
     func loadSortByCount() async {
+        currentTask?.cancel()
         sortBy = sortByCount
         page = 0
-        self.collections.removeAll()
+        collections.removeAll()
         await loadCollections()
     }
 }

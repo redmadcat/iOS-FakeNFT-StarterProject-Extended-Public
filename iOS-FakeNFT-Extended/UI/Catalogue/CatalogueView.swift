@@ -10,7 +10,6 @@ import SwiftUI
 struct CatalogueView: View {
     var vm : CatalogueViewModel
     @State private var showSort = false
-
     var body: some View {
         VStack{
             HStack{
@@ -28,7 +27,6 @@ struct CatalogueView: View {
                     ProgressView()
                 }
                 ScrollView(showsIndicators: false) {
-
                     LazyVStack(spacing: 8) {
                         ForEach(vm.collections) { collection in
                             Button{
@@ -44,7 +42,7 @@ struct CatalogueView: View {
                             .onAppear {
                                 if collection.id == vm.collections.last?.id {
                                     Task {
-                                       await vm.loadCollections()
+                                        await vm.loadCollections()
                                     }
                                 }
                             }
@@ -62,22 +60,22 @@ struct CatalogueView: View {
             titleVisibility: .visible
         ) {
             Button("По названию") {
-                     Task {
+                Task {
                     await vm.loadSortByName()
-                           }
+                }
             }
             
             Button("По количеству NFT") {
                 Task {
-               await vm.loadSortByCount()
-                      }
+                    await vm.loadSortByCount()
+                }
             }
             
             Button("Закрыть", role: .cancel) { }
         }
         .task {
             await vm.loadCollections()
-                   }
+        }
     }
     
 }
@@ -85,8 +83,8 @@ struct CatalogueView: View {
 
 #Preview {
     let service = CollectionsServiceImpl(
-    networkClient: DefaultNetworkClient()
-)
+        networkClient: DefaultNetworkClient()
+    )
     let vm = CatalogueViewModel(collectionsService: service)
     CatalogueView(vm: vm)
 }
