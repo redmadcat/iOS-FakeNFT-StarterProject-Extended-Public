@@ -70,8 +70,8 @@ struct CollectionNFTView: View {
         ]
         return  LazyVGrid(columns: columns, spacing: 8) {
             ForEach(vm.ntfs) { nft in
-                CollectionRowView( isLike: vm.likedNFTIds.contains(nft.id),
-                                   isSelected: vm.selectedNFTIds.contains(nft.id),
+                CollectionRowView( isLike: vm.likedNFTIds.contains(nft),
+                                   isSelected: vm.selectedNFTIds.contains(nft),
                                    nftCell: nft,
                                    actionLike: {
                     vm.toggleLike(for: nft)

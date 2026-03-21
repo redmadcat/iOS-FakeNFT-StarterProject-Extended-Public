@@ -14,8 +14,8 @@ final class CollectionNFTViewModel {
     var collection: CollectionModel
     var ntfs: [NFTCellModel]
     
-    private(set) var likedNFTIds: Set<String> = []
-    private(set) var selectedNFTIds: Set<String> = []
+    private(set) var likedNFTIds: Set<NFTCellModel> = []
+    private(set) var selectedNFTIds: Set<NFTCellModel> = []
     
     init(collection: CollectionModel, ntfs: [NFTCellModel]){
         self.collection = collection
@@ -23,18 +23,18 @@ final class CollectionNFTViewModel {
     }
     
     func toggleLike(for nft: NFTCellModel) {
-        if likedNFTIds.contains(nft.id) {
-            likedNFTIds.remove(nft.id)
+        if likedNFTIds.contains(nft) {
+            likedNFTIds.remove(nft)
         } else {
-            likedNFTIds.insert(nft.id)
+            likedNFTIds.insert(nft)
         }
     }
     
     func toggleSelection(for nft: NFTCellModel) {
-        if selectedNFTIds.contains(nft.id) {
-            selectedNFTIds.remove(nft.id)
+        if selectedNFTIds.contains(nft) {
+            selectedNFTIds.remove(nft)
         } else {
-            selectedNFTIds.insert(nft.id)
+            selectedNFTIds.insert(nft)
         }
     }
 }

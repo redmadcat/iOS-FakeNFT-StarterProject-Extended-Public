@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct CatalogueView: View {
+    var vm : CatalogueViewModel
     @State private var showSort = false
-    var collectionList: [CollectionModel] = []
+
     var body: some View {
         VStack{
             HStack{
@@ -23,23 +24,30 @@ struct CatalogueView: View {
             }
             .frame(height: 42)
             ZStack{
-                if collectionList.isEmpty {
+                if vm.collections.isEmpty {
                     ProgressView()
                 }
                 ScrollView(showsIndicators: false) {
-                    
+
                     LazyVStack(spacing: 8) {
-                        ForEach(collectionList) { collection in
+                        ForEach(vm.collections) { collection in
                             Button{
                                 
                             }label:{
                                 CatalogueListRowView(
                                     imageURL: collection.cover,
                                     title: collection.name,
-                                    imageCount: collection.ntfs.count
+                                    imageCount: collection.nfts.count
                                 )
                             }
                             .buttonStyle(.plain)
+                            .onAppear {
+                                if collection.id == vm.collections.last?.id {
+                                    Task {
+                                       await vm.loadCollections()
+                                    }
+                                }
+                            }
                         }
                     }
                     .padding(.top, 20)
@@ -54,21 +62,31 @@ struct CatalogueView: View {
             titleVisibility: .visible
         ) {
             Button("По названию") {
-                // сортировка по имени
+                     Task {
+                    await vm.loadSortByName()
+                           }
             }
             
             Button("По количеству NFT") {
-                // сортировка по количеству
+                Task {
+               await vm.loadSortByCount()
+                      }
             }
             
             Button("Закрыть", role: .cancel) { }
         }
+        .task {
+            await vm.loadCollections()
+                   }
     }
     
 }
 
 
 #Preview {
-    let collectionList = CollectionModel.mock
-    CatalogueView(collectionList: collectionList)
+    let service = CollectionsServiceImpl(
+    networkClient: DefaultNetworkClient()
+)
+    let vm = CatalogueViewModel(collectionsService: service)
+    CatalogueView(vm: vm)
 }

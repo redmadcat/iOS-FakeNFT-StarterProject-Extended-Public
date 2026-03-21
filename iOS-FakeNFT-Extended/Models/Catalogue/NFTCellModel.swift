@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NFTCellModel: Decodable, Identifiable, Sendable {
+struct NFTCellModel: Decodable, Identifiable, Sendable , Hashable {
     let createdAt: String
     let name: String
     let images: [String]
