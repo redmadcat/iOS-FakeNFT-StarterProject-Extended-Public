@@ -12,7 +12,6 @@ struct CollectionNFTView: View {
     var body: some View {
         ZStack(alignment: .top) {
             ScrollView(showsIndicators: false){
-                
                 VStack(alignment: .leading){
                     titleImage
                     nameCollection
@@ -62,13 +61,12 @@ struct CollectionNFTView: View {
     }
     
     var autor: some View {
-        Text("Автор коллекции: \(vm.collection.author)")
+        Text("\(Text("Collection.author")): \(vm.collection.author)")
             .font(.system(size: 13, weight: .regular))
             .frame(maxWidth: .infinity, alignment: .leading)
             .frame(height: 28)
             .padding(.horizontal, 16)
     }
-    
     
     var description: some View {
         Text(vm.collection.description)
@@ -92,7 +90,6 @@ struct CollectionNFTView: View {
                 },
                                    actionSelect: {
                     vm.toggleSelection(for: nft)
-                    
                 }
                 )
             }

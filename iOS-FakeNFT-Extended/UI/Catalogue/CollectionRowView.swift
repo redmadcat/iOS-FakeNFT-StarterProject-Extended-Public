@@ -14,8 +14,9 @@ struct CollectionRowView: View {
     let nftCell: NFTCellModel
     let actionLike: () -> Void
     let actionSelect: () -> Void
-   
-    
+    var formattedPrice: String {
+        nftCell.price.formatted(.number.precision(.fractionLength(0...1)))
+    }
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             imageView
@@ -25,7 +26,7 @@ struct CollectionRowView: View {
                     Text(nftCell.name)
                         .font(.system(size: 17, weight: .bold))
                     
-                    Text("\(nftCell.price) ETH")
+                    Text("\(formattedPrice) ETH")
                         .font(.system(size: 10, weight: .medium))
                 }
                 Spacer()

@@ -24,6 +24,5 @@ final class CollectionsServiceImpl: CollectionsService {
         let collections: [CollectionModel]  = try await networkClient.send(request: request)
         print (collections.count)
          return collections
-      
     }
 }
