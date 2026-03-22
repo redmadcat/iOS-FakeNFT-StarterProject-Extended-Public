@@ -16,46 +16,40 @@ enum sortBy {
 @MainActor
 @Observable
 final class CartViewModel {
-    private(set) var nftCards: [Nft] = []
+    private(set) var nfts: [Nft] = []
     private(set) var status: APIResponseStatus = .default
+    private var service: NftOrderService
+    
+    init(service: NftOrderService) {
+        self.service = service
+    }
     
     var totalCount: String {
-        nftCards.count.description + " NFT"
+        nfts.count.description + " NFT"
     }
     
     var totalPrice: String {
-        let price = nftCards.reduce(0) { $0 + $1.price }
-        return String(format: "%.2f", price) + " " + (nftCards.isEmpty ? "" : "ETH")
+        let price = nfts.reduce(0) { $0 + $1.price }
+        return String(format: "%.2f", price) + " " + (nfts.isEmpty ? "" : "ETH")
     }
     
     var noItems: Bool {
         (status == .success ||
-         status == .failure) && nftCards.isEmpty
+         status == .failure) && nfts.isEmpty
     }
     
     var actionAvailability: Bool {
-        nftCards.isEmpty
+        nfts.isEmpty
     }
     
-    func sort(predicate: sortBy) {
-        nftCards = nftCards.sorted {
-            switch predicate {
-            case .price:
-                $0.price < $1.price
-            case .rating:
-                $0.rating > $1.rating
-            case .name:
-                $0.name < $1.name
-            }
-        }
+    func sort(predicate: sortBy) async {
+        nfts = await service.sort(predicate)
     }
     
     func remove(item: Nft) async {
         do {
             status = .loading
-            _ = try await DefaultNetworkClient().send(request: NftPutOrderRequest(nfts: [item.id]))
-            
-            nftCards.removeAll(where: { $0.id == item.id })
+            nfts = try await service.remove(item)
             status = .success
         } catch {
             print(error)
@@ -64,18 +58,9 @@ final class CartViewModel {
     }
     
     func load() async {
-        var result: NftOrder
         do {
             status = .loading
-            result = try await DefaultNetworkClient().send(request: NftGetOrderRequest())
-            let nfts = result.nfts.isEmpty ? NftOrder.mock : result.nfts
-            
-            nftCards.removeAll()
-            
-            for id in nfts {
-                let nft: Nft = try await DefaultNetworkClient().send(request: NFTRequest(id: id))
-                nftCards.append(nft)
-            }
+            nfts = try await service.load()
             status = .success
         } catch {
             print(error)
