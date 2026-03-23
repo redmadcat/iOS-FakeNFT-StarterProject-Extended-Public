@@ -12,14 +12,14 @@ import Foundation
 final class CollectionNFTViewModel {
     
     var collection: CollectionModel
-    var ntfs: [NFTCellModel]
+    var nfts: [NFTCellModel]
     
     private(set) var likedNFTIds: Set<NFTCellModel> = []
     private(set) var selectedNFTIds: Set<NFTCellModel> = []
     
     init(collection: CollectionModel, ntfs: [NFTCellModel]){
         self.collection = collection
-        self.ntfs = ntfs
+        self.nfts = ntfs
     }
     
     func toggleLike(for nft: NFTCellModel) {

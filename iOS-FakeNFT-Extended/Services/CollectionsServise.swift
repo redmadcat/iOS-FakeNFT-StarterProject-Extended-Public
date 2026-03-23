@@ -20,7 +20,7 @@ final class CollectionsServiceImpl: CollectionsService {
     }
     
     func loadCollections(page: Int, sortBy: String? = nil) async throws -> [CollectionModel] {
-        let request = CollectionsByldRequest(page: page, sortBy: sortBy)
+        let request = CollectionsRequest(page: page, sortBy: sortBy)
         let collections: [CollectionModel]  = try await networkClient.send(request: request)
         print (collections.count)
          return collections

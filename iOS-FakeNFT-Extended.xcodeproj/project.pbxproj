@@ -53,7 +53,7 @@
 		E88EE3762F6C706900AC1D82 /* CatalogueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE3752F6C706900AC1D82 /* CatalogueViewModel.swift */; };
 		E88EE37B2F6C7CBF00AC1D82 /* CollectionNFTViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE37A2F6C7CBF00AC1D82 /* CollectionNFTViewModel.swift */; };
 		E88EE3832F6EB47200AC1D82 /* CollectionsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE3822F6EB47200AC1D82 /* CollectionsStorage.swift */; };
-		E88EE3852F6EB8F100AC1D82 /* CollectionsByldRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE3842F6EB8F100AC1D82 /* CollectionsByldRequest.swift */; };
+		E88EE3852F6EB8F100AC1D82 /* CollectionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE3842F6EB8F100AC1D82 /* CollectionsRequest.swift */; };
 		E88EE3872F6EDA4D00AC1D82 /* CollectionsServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE3862F6EDA4D00AC1D82 /* CollectionsServise.swift */; };
 /* End PBXBuildFile section */
 
@@ -122,7 +122,7 @@
 		E88EE3752F6C706900AC1D82 /* CatalogueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogueViewModel.swift; sourceTree = "<group>"; };
 		E88EE37A2F6C7CBF00AC1D82 /* CollectionNFTViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionNFTViewModel.swift; sourceTree = "<group>"; };
 		E88EE3822F6EB47200AC1D82 /* CollectionsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsStorage.swift; sourceTree = "<group>"; };
-		E88EE3842F6EB8F100AC1D82 /* CollectionsByldRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsByldRequest.swift; sourceTree = "<group>"; };
+		E88EE3842F6EB8F100AC1D82 /* CollectionsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsRequest.swift; sourceTree = "<group>"; };
 		E88EE3862F6EDA4D00AC1D82 /* CollectionsServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsServise.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -283,7 +283,7 @@
 			children = (
 				ABC5E1B12C31FBD4002B4068 /* ExampleRequest.swift */,
 				ABC5E1AD2C31FB7F002B4068 /* NftByIdRequest.swift */,
-				E88EE3842F6EB8F100AC1D82 /* CollectionsByldRequest.swift */,
+				E88EE3842F6EB8F100AC1D82 /* CollectionsRequest.swift */,
 				ABC5E1AF2C31FB90002B4068 /* RequestConstants.swift */,
 			);
 			path = Requests;
@@ -550,7 +550,7 @@
 				ABC5E1AB2C31FACD002B4068 /* NftService.swift in Sources */,
 				ABC5E1B22C31FBD4002B4068 /* ExampleRequest.swift in Sources */,
 				ABC5E1CD2C32040C002B4068 /* NftImageCollectionViewCell.swift in Sources */,
-				E88EE3852F6EB8F100AC1D82 /* CollectionsByldRequest.swift in Sources */,
+				E88EE3852F6EB8F100AC1D82 /* CollectionsRequest.swift in Sources */,
 				E88EE3832F6EB47200AC1D82 /* CollectionsStorage.swift in Sources */,
 				ABC5E1A82C31FA90002B4068 /* DateFormatters+Presets.swift in Sources */,
 				E88EE3682F62021700AC1D82 /* Collections.swift in Sources */,

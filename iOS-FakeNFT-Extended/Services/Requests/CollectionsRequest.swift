@@ -1,5 +1,5 @@
 //
-//  CollectionsByldRequest.swift
+//  CollectionsRequest.swift
 //  iOS-FakeNFT-Extended
 //
 //  Created by Сергей Лебедь on 21.03.2026.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CollectionsByldRequest: NetworkRequest {
+struct CollectionsRequest: NetworkRequest {
     var page: Int
     var size: Int = 5
     var sortBy: String?
