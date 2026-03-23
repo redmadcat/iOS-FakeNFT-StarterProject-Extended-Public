@@ -40,10 +40,10 @@ final class CartViewModel {
         nfts = await service.sort(predicate)
     }
     
-    func remove(item: Nft) async {
+    func remove(_ nft: Nft) async {
         do {
             status = .loading
-            nfts = try await service.remove(item)
+            nfts = try await service.remove(nft)
             status = .success
         } catch {
             print(error)

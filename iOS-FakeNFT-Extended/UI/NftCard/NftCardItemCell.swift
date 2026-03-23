@@ -10,7 +10,7 @@ import Kingfisher
 
 struct NftCardItemCell: View {
     @State private var showDeleteCover = false
-    var item: Nft
+    var nft: Nft
     var onDelete: () -> Void
     
     var body: some View {
@@ -24,21 +24,21 @@ struct NftCardItemCell: View {
     }
         
     private var nftCardImage: some View {
-        NftCardImage(imageUrl: item.images.first)
+        NftCardImage(imageUrl: nft.images.first)
     }
     
     private var nftDetails: some View {
         VStack {
-            Text(item.name)
+            Text(nft.name)
                 .font(.largeBold)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Image(ratingImage(rating: item.rating))
+            Image(ratingImage(rating: nft.rating))
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text("NftCardItemCell.details.price")
                 .font(.smallRegular)
                 .frame(maxWidth: .infinity, alignment: .leading)
             HStack {
-                Text(item.price.description)
+                Text(nft.price.description)
                 Text("ETH")
             }
             .font(.largeBold)
@@ -60,7 +60,7 @@ struct NftCardItemCell: View {
         .fullScreenCover(isPresented: $showDeleteCover) {
             NftCardDeleteCover(showDeleteCover: $showDeleteCover,
                                onDelete: onDelete,
-                               imageUrl: item.images.first)
+                               imageUrl: nft.images.first)
         }
     }
     
