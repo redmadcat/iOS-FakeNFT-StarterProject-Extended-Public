@@ -31,7 +31,7 @@ struct CartView: View {
                 await context.load()
             }
 
-            progressView
+            ProgressCircle(status: context.status == .loading)
         }
     }
     
@@ -136,14 +136,6 @@ struct CartView: View {
                 topTrailingRadius: 12
             )
         )
-    }
-    
-    private var progressView: some View {
-        ProgressView()
-            .frame(width: 82, height: 82)
-            .background(Color.ypLightGreyAD)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-            .opacity(context.status == .loading ? 1 : 0)
     }
 }
 
