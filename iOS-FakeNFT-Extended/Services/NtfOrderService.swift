@@ -8,7 +8,7 @@
 protocol NftOrderService {
     func load() async throws -> [Nft]
     func remove(_ ntf: Nft) async throws -> [Nft]
-    func sort(_ by: sortBy) async -> [Nft]
+    func sort(_ predicate: NtfOrderPredicate) async -> [Nft]
 }
 
 @MainActor
@@ -42,7 +42,7 @@ final class NftOrderServiceImpl: NftOrderService {
         return await storage.cache
     }
     
-    func sort(_ by: sortBy) async -> [Nft] {
-        await storage.sort(by)
+    func sort(_ predicate: NtfOrderPredicate) async -> [Nft] {
+        await storage.sort(predicate)
     }
 }

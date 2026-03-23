@@ -9,7 +9,7 @@ import Foundation
 
 protocol NftOrderStorage: AnyObject {
     func save(_ nft: Nft) async
-    func sort(_ by: sortBy) async -> [Nft]
+    func sort(_ predicate: NtfOrderPredicate) async -> [Nft]
     func remove(_ nft: Nft) async
     func clear() async
     var cache: [Nft] { get async }
@@ -22,9 +22,9 @@ actor NftOrderStorageImpl: NftOrderStorage {
         cache.append(nft)
     }
         
-    func sort(_ by: sortBy) async -> [Nft] {
+    func sort(_ predicate: NtfOrderPredicate) async -> [Nft] {
         return cache.sorted {
-            switch by {
+            switch predicate {
             case .price:
                 $0.price < $1.price
             case .rating:
