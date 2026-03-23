@@ -9,7 +9,11 @@ import SwiftUI
 
 struct CartView: View {
     @State private var showSortOptions = false
-    @State private var context = CartViewModel()
+    @State private var context: CartViewModel
+    
+    init(context: CartViewModel) {
+        self.context = context
+    }
     
     var body: some View {
         ZStack {
@@ -45,13 +49,19 @@ struct CartView: View {
             .buttonStyle(.plain)
             .confirmationDialog("ActionSheet.sorting.title", isPresented: $showSortOptions, titleVisibility: .visible) {
                 Button("ActionSheet.sorting.price") {
-                    context.sort(predicate: .price)
+                    Task {
+                        await context.sort(.price)
+                    }
                 }
                 Button("ActionSheet.sorting.rating") {
-                    context.sort(predicate: .rating)
+                    Task {
+                        await context.sort(.rating)
+                    }
                 }
                 Button("ActionSheet.sorting.name") {
-                    context.sort(predicate: .name)
+                    Task {
+                        await context.sort(.name)
+                    }
                 }
                 Button("ActionSheet.sorting.close", role: .cancel, action: {})
             }
@@ -59,7 +69,7 @@ struct CartView: View {
     }
     
     private var nftCardList: some View {
-        List(context.nftCards) { item in
+        List(context.nfts) { item in
             NftCardItemCell(item: item, onDelete: {
                 Task {
                     await context.remove(item: item)
@@ -138,5 +148,8 @@ struct CartView: View {
 }
 
 #Preview {
-    CartView()
+    CartView(context: CartViewModel(service: NftOrderServiceImpl(
+            networkClient: DefaultNetworkClient(),
+            storage: NftOrderStorageImpl()))
+    )
 }

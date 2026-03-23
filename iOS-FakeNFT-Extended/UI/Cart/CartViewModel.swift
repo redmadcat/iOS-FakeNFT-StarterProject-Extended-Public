@@ -7,18 +7,12 @@
 
 import SwiftUI
 
-enum sortBy {
-    case price
-    case rating
-    case name
-}
-
 @MainActor
 @Observable
 final class CartViewModel {
     private(set) var nfts: [Nft] = []
     private(set) var status: APIResponseStatus = .default
-    private var service: NftOrderService
+    private let service: NftOrderService
     
     init(service: NftOrderService) {
         self.service = service
@@ -42,7 +36,7 @@ final class CartViewModel {
         nfts.isEmpty
     }
     
-    func sort(predicate: sortBy) async {
+    func sort(_ predicate: NtfOrderPredicate) async {
         nfts = await service.sort(predicate)
     }
     
