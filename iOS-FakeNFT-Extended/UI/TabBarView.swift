@@ -26,7 +26,9 @@ struct TabBarView: View {
             .navigationDestination(for: RouteEndpoint.self) { endpoint in
                 switch endpoint {
                 case .payment:
-                    Text("Payment")
+                    PaymentMethodView(context: PaymentMethodViewModel(service: CurrencyServiceImpl(
+                        networkClient: DefaultNetworkClient(),
+                        storage: CurrencyStorageImpl())))
                 case .cart:
                     Text("Cart")
                 case .agreement:
@@ -38,4 +40,8 @@ struct TabBarView: View {
             }
         }
     }
+}
+
+#Preview {
+    TabBarView()
 }
