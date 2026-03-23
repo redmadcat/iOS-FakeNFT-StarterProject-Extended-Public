@@ -10,14 +10,14 @@ import SwiftUI
 struct PaymentMethodView: View {
     var body: some View {
         VStack {
-   
+            
         }
         .navigationTitle("PaymentMethodView.navigation.title")
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-
+                NavigationBackButton()
             }
         }
         .background(.ypWhiteAD)
