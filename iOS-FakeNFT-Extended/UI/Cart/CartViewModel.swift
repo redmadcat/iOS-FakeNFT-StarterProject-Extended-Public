@@ -46,7 +46,7 @@ final class CartViewModel {
             nfts = try await service.remove(nft)
             status = .success
         } catch {
-            print(error)
+            print(error.localizedDescription)
             status = .failure
         }
     }
@@ -57,7 +57,7 @@ final class CartViewModel {
             nfts = try await service.load()
             status = .success
         } catch {
-            print(error)
+            print(error.localizedDescription)
             status = .failure
         }
     }
