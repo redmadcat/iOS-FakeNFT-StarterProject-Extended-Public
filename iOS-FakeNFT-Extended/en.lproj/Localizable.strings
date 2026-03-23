@@ -16,3 +16,4 @@
 "NftCardItemCell.delete.cancel" = "Вернуться";
 "CartEmptyView.title" = "Корзина пуста";
 "CartView.total.payment" = "К оплате";
+"PaymentMethodView.navigation.title" = "Выберите способ оплаты";
