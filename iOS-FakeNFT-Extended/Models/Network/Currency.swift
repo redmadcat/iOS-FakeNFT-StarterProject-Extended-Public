@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Currency: Decodable, Identifiable {
+struct Currency: Decodable, Identifiable, Equatable {
     let id: String
     let name: String
     let image: URL
