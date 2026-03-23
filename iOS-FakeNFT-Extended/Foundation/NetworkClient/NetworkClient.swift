@@ -42,6 +42,7 @@ actor DefaultNetworkClient: NetworkClient {
 
     func send<T: Decodable>(request: NetworkRequest) async throws -> T {
         let data = try await send(request: request)
+       
         return try await parse(data: data)
     }
 
