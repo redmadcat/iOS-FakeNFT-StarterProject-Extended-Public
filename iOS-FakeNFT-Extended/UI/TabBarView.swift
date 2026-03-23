@@ -14,7 +14,9 @@ struct TabBarView: View {
                         )
                     }
                     .backgroundStyle(.background)
-                CartView()
+                CartView(context: CartViewModel(service: NftOrderServiceImpl(
+                    networkClient: DefaultNetworkClient(),
+                    storage: NftOrderStorageImpl())))
                     .tabItem {
                         Image(.cart).renderingMode(.template)
                         Text("Tab.cart")
