@@ -5,8 +5,8 @@
 //  Created by Roman Yaschenkov on 23.03.2026.
 //
 
-enum NtfOrderPredicate {
-    case price
+enum NtfOrderPredicate: Int, CaseIterable {
+    case price = 0
     case rating
     case name
 }
