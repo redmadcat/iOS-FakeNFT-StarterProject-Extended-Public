@@ -7,7 +7,7 @@
 
 protocol NftOrderService {
     func load() async throws -> [Nft]
-    func remove(_ ntf: Nft) async throws -> [Nft]
+    func remove(_ nft: Nft) async throws -> [Nft]
     func sort(_ predicate: NtfOrderPredicate) async -> [Nft]
 }
 
@@ -22,23 +22,26 @@ final class NftOrderServiceImpl: NftOrderService {
     }
 
     func load() async throws -> [Nft] {
-        let result: NftOrder = try await networkClient.send(request: NftGetOrderRequest())
-        
-        // INFO: use mock if no orders placed to simplify test
-        let nfts = result.nfts.isEmpty ? NftOrder.mock : result.nfts
+        let order: NftOrder = try await networkClient.send(request: NftGetOrderRequest())
+        if order.nfts.isEmpty { return [] }
         
         await storage.clear()
         
-        for id in nfts {
+        for id in order.nfts {
             let nft: Nft = try await networkClient.send(request: NFTRequest(id: id))
             await storage.save(nft)
         }
         return await storage.cache
     }
     
-    func remove(_ ntf: Nft) async throws -> [Nft] {
-        await storage.remove(ntf)
-        // TODO: sprint_3 networkClient OrderPutRequest
+    func remove(_ nft: Nft) async throws -> [Nft] {
+        let nfts = try await load()
+        if nfts.isEmpty { return [] }
+        
+        let nftIds = nfts.filter { $0.id != nft.id }.map { $0.id }
+        _ = try await networkClient.send(request: NftPutOrderRequest(nfts: nftIds))
+                
+        await storage.remove(nft)
         return await storage.cache
     }
     
