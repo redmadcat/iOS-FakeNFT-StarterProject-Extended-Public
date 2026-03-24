@@ -27,13 +27,17 @@ final class CartViewModel {
         return String(format: "%.2f", price) + " " + (nfts.isEmpty ? "" : "ETH")
     }
     
+    var isBusy: Bool {
+        status == .loading
+    }
+    
     var noItems: Bool {
         (status == .success ||
          status == .failure) && nfts.isEmpty
     }
     
     var actionAvailability: Bool {
-        nfts.isEmpty
+        nfts.isEmpty || isBusy
     }
     
     func sort(_ predicate: NtfOrderPredicate) async {
