@@ -79,7 +79,9 @@ struct PaymentMethodView: View {
             .padding(20)
             
             Button {
-                
+                Task {
+                    await context.pay(currency: selectedCurrency)
+                }
             } label: {
                 Text("PaymentMethodView.pay")
                     .font(.largeBold)
