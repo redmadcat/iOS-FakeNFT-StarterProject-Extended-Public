@@ -10,6 +10,7 @@ import SwiftUI
 struct CartView: View {
     @State private var showSortOptions = false
     @State private var context: CartViewModel
+    @AppStorage("nftOrderPredicate") private var predicate: NtfOrderPredicate?
     
     init(context: CartViewModel) {
         self.context = context
@@ -28,7 +29,7 @@ struct CartView: View {
             }
             .background(.ypWhiteAD)
             .task {
-                await context.load()
+                await context.load(predicate)
             }
 
             ProgressCircle(status: context.isBusy)
@@ -50,16 +51,19 @@ struct CartView: View {
             .confirmationDialog("ActionSheet.sorting.title", isPresented: $showSortOptions, titleVisibility: .visible) {
                 Button("ActionSheet.sorting.price") {
                     Task {
+                        predicate = .price
                         await context.sort(.price)
                     }
                 }
                 Button("ActionSheet.sorting.rating") {
                     Task {
+                        predicate = .rating
                         await context.sort(.rating)
                     }
                 }
                 Button("ActionSheet.sorting.name") {
                     Task {
+                        predicate = .name
                         await context.sort(.name)
                     }
                 }

@@ -55,11 +55,14 @@ final class CartViewModel {
         }
     }
     
-    func load() async {
+    func load(_ predicate: NtfOrderPredicate?) async {
         do {
             status = .loading
             nfts = try await service.load()
             status = .success
+                        
+            guard let predicate else { return }
+            await sort(predicate)
         } catch {
             print(error.localizedDescription)
             status = .failure
