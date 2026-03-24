@@ -32,7 +32,7 @@ struct TabBarView: View {
                 case .cart:
                     Text("Cart")
                 case .agreement:
-                    Text("Agreement")
+                    UserAgreementView()
                 }
             }
             .onAppear() {
