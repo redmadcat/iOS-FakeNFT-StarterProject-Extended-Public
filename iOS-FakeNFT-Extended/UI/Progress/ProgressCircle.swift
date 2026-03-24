@@ -12,6 +12,7 @@ struct ProgressCircle: View {
     
     var body: some View {
         ProgressView()
+            .scaleEffect(1.5)
             .frame(width: 82, height: 82)
             .background(Color.ypLightGreyAD)
             .clipShape(RoundedRectangle(cornerRadius: 8))
