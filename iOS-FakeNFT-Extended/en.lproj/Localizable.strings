@@ -17,3 +17,6 @@
 "CartEmptyView.title" = "Корзина пуста";
 "CartView.total.payment" = "К оплате";
 "PaymentMethodView.navigation.title" = "Выберите способ оплаты";
+"PaymentMethodView.pay" = "Оплатить";
+"PaymentMethodView.payment.agreement" = "Совершая покупку, вы соглашаетесь с условиями";
+"PaymentMethodView.payment.legalInfo" = "Пользовательского соглашения";
