@@ -37,12 +37,14 @@ final class NftOrderServiceImpl: NftOrderService {
     
     func remove(_ nft: Nft) async throws -> [Nft] {
         let nfts = try await load()
-        if nfts.isEmpty { return [] }
-        
-        let nftIds = nfts.filter { $0.id != nft.id }.map { $0.id }
-        _ = try await networkClient.send(request: NftPutOrderRequest(nfts: nftIds))
-                
-        await storage.remove(nft)
+        if !nfts.isEmpty {
+            let nftIds = nfts.filter { $0.id != nft.id }.map { $0.id }
+            if !nftIds.isEmpty {
+                _ = try await networkClient.send(request: NftPutOrderRequest(nfts: nftIds))
+                await storage.remove(nft)
+            }
+        }
+                                        
         return await storage.cache
     }
     
