@@ -20,3 +20,4 @@
 "PaymentMethodView.pay" = "Оплатить";
 "PaymentMethodView.payment.agreement" = "Совершая покупку, вы соглашаетесь с условиями";
 "PaymentMethodView.payment.legalInfo" = "Пользовательского соглашения";
+"UserAgreementView.navigation.title" = "Пользовательское соглашение";
