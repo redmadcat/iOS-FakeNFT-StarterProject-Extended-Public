@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9404299A2F6443EB0017EC08 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940429992F6443EB0017EC08 /* CartView.swift */; };
 		942DA9902F72A7D400BCD0D2 /* UserAgreementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942DA98F2F72A7D300BCD0D2 /* UserAgreementView.swift */; };
+		94C3538E2F73342D005DDBA1 /* PaymentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3538D2F733421005DDBA1 /* PaymentResponse.swift */; };
+		94C353902F733485005DDBA1 /* PaymentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3538F2F733480005DDBA1 /* PaymentRequest.swift */; };
 		94CDDC592F692C20003E255F /* NftCardItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDC582F692C20003E255F /* NftCardItemCell.swift */; };
 		94CDDC5F2F697950003E255F /* NftCardDeleteCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDC5E2F697950003E255F /* NftCardDeleteCover.swift */; };
 		94CDDC612F698753003E255F /* BackgroundBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDC602F69874E003E255F /* BackgroundBlurView.swift */; };
@@ -90,6 +92,8 @@
 /* Begin PBXFileReference section */
 		940429992F6443EB0017EC08 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		942DA98F2F72A7D300BCD0D2 /* UserAgreementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgreementView.swift; sourceTree = "<group>"; };
+		94C3538D2F733421005DDBA1 /* PaymentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentResponse.swift; sourceTree = "<group>"; };
+		94C3538F2F733480005DDBA1 /* PaymentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRequest.swift; sourceTree = "<group>"; };
 		94CDDC582F692C20003E255F /* NftCardItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftCardItemCell.swift; sourceTree = "<group>"; };
 		94CDDC5E2F697950003E255F /* NftCardDeleteCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftCardDeleteCover.swift; sourceTree = "<group>"; };
 		94CDDC602F69874E003E255F /* BackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundBlurView.swift; sourceTree = "<group>"; };
@@ -360,6 +364,7 @@
 		ABC5E19F2C31F6CB002B4068 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				94C3538D2F733421005DDBA1 /* PaymentResponse.swift */,
 				94D0C1222F71412E0031186B /* Currency.swift */,
 				94D0C1072F6C195C0031186B /* NftOrder.swift */,
 				ABC5E1A02C31F6D7002B4068 /* Nft.swift */,
@@ -392,6 +397,7 @@
 		ABC5E1AC2C31FB6C002B4068 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				94C3538F2F733480005DDBA1 /* PaymentRequest.swift */,
 				94D0C1242F7143AB0031186B /* CurrencyGetRequest.swift */,
 				ABC5E1B12C31FBD4002B4068 /* ExampleRequest.swift */,
 				ABC5E1AD2C31FB7F002B4068 /* NftByIdRequest.swift */,
@@ -611,6 +617,7 @@
 				94CDDC5F2F697950003E255F /* NftCardDeleteCover.swift in Sources */,
 				94D0C11B2F710D250031186B /* NftOrderPredicate.swift in Sources */,
 				94D0C10B2F6C63BF0031186B /* APIResponsesStatus.swift in Sources */,
+				94C3538E2F73342D005DDBA1 /* PaymentResponse.swift in Sources */,
 				94CDDC612F698753003E255F /* BackgroundBlurView.swift in Sources */,
 				ABC5E1E42C32055B002B4068 /* ErrorView.swift in Sources */,
 				ABC5E1A62C31F815002B4068 /* NetworkRequest.swift in Sources */,
@@ -639,6 +646,7 @@
 				94CDDC632F69DFD2003E255F /* CartEmptyView.swift in Sources */,
 				ABC5E1CB2C3203FC002B4068 /* NftDetailCellModel.swift in Sources */,
 				ABC5E1AB2C31FACD002B4068 /* NftService.swift in Sources */,
+				94C353902F733485005DDBA1 /* PaymentRequest.swift in Sources */,
 				94D0C11D2F7131230031186B /* PaymentMethodView.swift in Sources */,
 				94D0C1182F7079B70031186B /* NtfOrderStorage.swift in Sources */,
 				94D0C1062F6C18060031186B /* NftGetOrderRequest.swift in Sources */,
