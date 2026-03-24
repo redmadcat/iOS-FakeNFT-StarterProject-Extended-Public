@@ -31,7 +31,7 @@ struct CartView: View {
                 await context.load()
             }
 
-            ProgressCircle(status: context.status == .loading)
+            ProgressCircle(status: context.isBusy)
         }
     }
     
@@ -75,6 +75,7 @@ struct CartView: View {
                     await context.remove(nft)
                 }
             })
+            .disabled(context.isBusy)
             .listRowBackground(Color.ypWhiteAD)
             .listRowSeparator(.hidden)
             .listRowInsets(
