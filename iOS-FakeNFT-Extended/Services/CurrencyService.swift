@@ -7,6 +7,7 @@
 
 protocol CurrencyService {
     func load() async throws -> [Currency]
+    func pay(currency: Currency) async throws -> PaymentResponse
 }
 
 @MainActor
@@ -28,5 +29,16 @@ final class CurrencyServiceImpl: CurrencyService {
             await storage.save(currency)
         }
         return await storage.cache
+    }
+    
+    func pay(currency: Currency) async throws -> PaymentResponse {
+        let request = PaymentRequest(currencyId: currency.id)
+        let response: PaymentResponse = try await networkClient.send(request: request)
+        
+        guard response.success else {
+            throw PaymentTransaction.failed
+        }
+        
+        return response
     }
 }
