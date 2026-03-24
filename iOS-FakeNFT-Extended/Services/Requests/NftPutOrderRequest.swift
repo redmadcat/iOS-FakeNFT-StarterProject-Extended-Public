@@ -15,4 +15,9 @@ struct NftPutOrderRequest: NetworkRequest {
     }
     
     var httpMethod: HttpMethod { .put }
+    
+    var body: Data? {
+        nfts.map { "nfts=\($0.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? $0)" }
+            .joined(separator: "&").data(using: .utf8)
+    }
 }
