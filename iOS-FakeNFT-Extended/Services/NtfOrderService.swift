@@ -23,14 +23,15 @@ final class NftOrderServiceImpl: NftOrderService {
 
     func load() async throws -> [Nft] {
         let order: NftOrder = try await networkClient.send(request: NftGetOrderRequest())
-        if order.nfts.isEmpty { return [] }
-        
         await storage.clear()
         
-        for id in order.nfts {
-            let nft: Nft = try await networkClient.send(request: NFTRequest(id: id))
-            await storage.save(nft)
+        if !order.nfts.isEmpty {
+            for id in order.nfts {
+                let nft: Nft = try await networkClient.send(request: NFTRequest(id: id))
+                await storage.save(nft)
+            }
         }
+                        
         return await storage.cache
     }
     
