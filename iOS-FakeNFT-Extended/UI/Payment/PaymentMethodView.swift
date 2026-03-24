@@ -36,6 +36,8 @@ struct PaymentMethodView: View {
                     .padding(.horizontal, 16)
                     .padding(.vertical, 20)
                 }
+                
+                paymentSection
             }
             .navigationTitle("PaymentMethodView.navigation.title")
             .navigationBarBackButtonHidden(true)
@@ -52,6 +54,61 @@ struct PaymentMethodView: View {
                         
             ProgressCircle(status: context.status == .loading)
         }
+        .ignoresSafeArea(edges: .bottom)
+    }
+    
+    private var paymentSection: some View {
+        VStack {
+            VStack {
+                Text("PaymentMethodView.payment.agreement")
+                    .font(.smallRegular)
+                    .foregroundStyle(.ypBlackAD)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Button(action: {
+                    Router.shared.toAgreement()
+                }) {
+                    Text("PaymentMethodView.payment.legalInfo")
+                        .font(.smallRegular)
+                        .foregroundColor(.ypBlue)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding([.top, .bottom], -4)
+                .buttonStyle(.plain)
+            }
+            .padding(20)
+            
+            Button {
+                
+            } label: {
+                Text("PaymentMethodView.pay")
+                    .font(.largeBold)
+                    .foregroundStyle(.ypWhiteAD)
+            }
+            .disabled(selectedCurrency == nil)
+            .frame(maxWidth: .infinity, minHeight: 60)
+            .background(.ypBlackAD)
+            .buttonStyle(.plain)
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .padding(.bottom, 50)
+            .padding([.leading, .trailing], 20)
+        }
+        .frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: 186,
+            alignment: .bottom
+        )
+        .background(.ypLightGreyAD)
+        .clipShape(
+            .rect(
+                topLeadingRadius: 12,
+                bottomLeadingRadius: 0,
+                bottomTrailingRadius: 0,
+                topTrailingRadius: 12
+            )
+        )
     }
 }
 
