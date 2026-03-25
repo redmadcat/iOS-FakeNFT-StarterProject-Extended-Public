@@ -24,4 +24,5 @@ extension Font {
     static var mediumRegular = Font.system(size: 15, weight: .regular)
     static var largeBold = Font.system(size: 17, weight: .bold)
     static var largeRegular = Font.system(size: 17, weight: .regular)
+    static var extraLargeBold = Font.system(size: 22, weight: .bold)
 }
