@@ -14,10 +14,10 @@ protocol AllNftService {
 final class AllNftServiceImpl: AllNftService {
 
     private let networkClient: NetworkClient
-    private let storage: NftStorage
+   // private let storage: NftStorage
 
-    init(networkClient: NetworkClient, storage: NftStorage) {
-        self.storage = storage
+    init(networkClient: NetworkClient) {
+       // self.storage = storage
         self.networkClient = networkClient
     }
 

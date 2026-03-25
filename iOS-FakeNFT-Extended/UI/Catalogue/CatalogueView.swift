@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CatalogueView: View {
-    var vm : CatalogueViewModel
+     let vm : CatalogueViewModel
     @State private var showSort = false
     @State private var path: [SelectionType] = []
     var body: some View {
@@ -30,10 +30,11 @@ struct CatalogueView: View {
                     }
                     ScrollView(showsIndicators: false) {
                         LazyVStack(spacing: 8) {
-                            ForEach(vm.collections, id: \.id) { collection in
+                            ForEach(vm.collections) { collection in
                                 
                                 Button{
-                                    path.append(.collectionNft(collection))
+                                    let nfts =  vm.mapNftsToCollection(collection: collection)
+                                    path.append(.collectionNft(collection, nfts))
                                 }label:{
                                     CatalogueListRowView(
                                         imageURL: collection.cover,
@@ -70,16 +71,17 @@ struct CatalogueView: View {
                 
                 Button("Закрыть", role: .cancel) { }
             }
-            .task {
-                await vm.loadCollections()
-            }
-            
+
             
             .navigationDestination(for: SelectionType.self) { type in
                 switch type {
-                case .collectionNft(let collection):
-                    CollectionNFTView(vm: CollectionNFTViewModel(collection: collection)
+                case .collectionNft(let collection, let nfts):
+                    CollectionNFTView(vm: CollectionNFTViewModel(collection: collection, nfts: nfts),path: $path
                     )
+                case .webView(let url):
+                    if let webURL = URL(string: url) {
+                        WebViewContainer(url: webURL, path: $path)
+                    }
                    
                 }
             }
@@ -90,9 +92,11 @@ struct CatalogueView: View {
 
 
 #Preview {
-    let service = CollectionsServiceImpl(
+    let collectionsService = CollectionsServiceImpl(
         networkClient: DefaultNetworkClient()
     )
-    let vm = CatalogueViewModel(collectionsService: service)
+    let allNftService = AllNftServiceImpl(networkClient: DefaultNetworkClient())
+    
+   let vm = CatalogueViewModel(collectionsService: collectionsService, allNftsService: allNftService)
     CatalogueView(vm: vm)
 }

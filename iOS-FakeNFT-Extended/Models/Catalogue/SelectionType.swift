@@ -7,5 +7,6 @@
 
 
 enum SelectionType: Hashable{
-    case collectionNft(CollectionModel)
+    case collectionNft(CollectionModel, [NFTCellModel])
+    case webView(url: String)
 }

@@ -30,7 +30,6 @@ final class CollectionsServiceImpl: CollectionsService {
     func loadCollections() async throws -> [CollectionModel] {
         let request = CollectionsRequest()
         let collections: [CollectionModel]  = try await networkClient.send(request: request)
-        print (collections.count)
          return collections
     }
 }
