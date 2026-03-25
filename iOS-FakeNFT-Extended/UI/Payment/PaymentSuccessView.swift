@@ -23,7 +23,7 @@ struct PaymentSuccessView: View {
             Spacer()
             
             Button {
-                
+                Router.shared.toRoot()
             } label: {
                 Text("PaymentSuccessView.to.cart")
                     .font(.largeBold)
@@ -36,6 +36,9 @@ struct PaymentSuccessView: View {
             .padding(.bottom, 50)
             .padding([.leading, .trailing], 20)
         }
+        .navigationTitle("")
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
         .ignoresSafeArea(.all)
         .background(.ypWhiteAD)
     }
