@@ -14,16 +14,16 @@ final class Router {
     
     var endpoint: [RouteEndpoint] = []
                 
-    func toPayment() {
-        endpoint.append(.payment)
+    func toPayment(parent: CartViewModel) {
+        endpoint.append(.payment(parent: parent))
     }
     
-    func toCart() {
-        endpoint.append(.cart)
+    func toPaymentResult() {
+        endpoint.append(.paymentResult)
     }
     
-    func toAgreement() {
-        endpoint.append(.agreement)
+    func toAgreement(parent: PaymentMethodViewModel) {
+        endpoint.append(.agreement(parent: parent))
     }
     
     func toRoot() {

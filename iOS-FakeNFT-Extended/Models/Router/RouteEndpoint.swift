@@ -6,7 +6,7 @@
 //
 
 enum RouteEndpoint: Hashable {
-    case payment
-    case cart
-    case agreement
+    case payment(parent: CartViewModel)
+    case paymentResult
+    case agreement(parent: PaymentMethodViewModel)
 }
