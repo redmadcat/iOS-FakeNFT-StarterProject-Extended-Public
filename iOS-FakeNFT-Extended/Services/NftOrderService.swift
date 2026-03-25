@@ -9,6 +9,8 @@ protocol NftOrderService {
     func load() async throws -> [Nft]
     func remove(_ nft: Nft) async throws -> [Nft]
     func sort(_ predicate: NtfOrderPredicate) async -> [Nft]
+    func pay(currency: Currency) async throws -> PaymentResponse
+    func clear() async throws
 }
 
 @MainActor
@@ -50,5 +52,20 @@ final class NftOrderServiceImpl: NftOrderService {
     
     func sort(_ predicate: NtfOrderPredicate) async -> [Nft] {
         await storage.sort(predicate)
+    }
+    
+    func pay(currency: Currency) async throws -> PaymentResponse {
+        let request = PaymentRequest(currencyId: currency.id)
+        let response: PaymentResponse = try await networkClient.send(request: request)
+        
+        guard response.success else {
+            throw PaymentTransaction.failed
+        }
+        
+        return response
+    }
+    
+    func clear() async throws {
+        _ = try await networkClient.send(request: NftPutOrderRequest(nfts: []))
     }
 }
