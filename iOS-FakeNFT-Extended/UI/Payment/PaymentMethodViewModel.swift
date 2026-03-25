@@ -19,6 +19,10 @@ final class PaymentMethodViewModel {
         self.service = service
     }
     
+    var isBusy: Bool {
+        status == .loading
+    }
+    
     func load() async {
         defer { forceRefresh = true }
         if !forceRefresh { return }
