@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TabBarView: View {
-    @State private var router = Router.shared
+    @State private var router = Router.shared    
     
     var body: some View {
         NavigationStack(path: $router.endpoint) {
@@ -25,12 +25,13 @@ struct TabBarView: View {
             }
             .navigationDestination(for: RouteEndpoint.self) { endpoint in
                 switch endpoint {
-                case .payment:
+                case .payment(let parent):
                     PaymentMethodView(context: PaymentMethodViewModel(service: CurrencyServiceImpl(
                         networkClient: DefaultNetworkClient(),
                         storage: CurrencyStorageImpl())))
-                case .cart:
-                    Text("Cart")
+                        .environment(parent)
+                case .paymentResult(_):
+                    PaymentSuccessView()
                 case .agreement:
                     UserAgreementView()
                 }
