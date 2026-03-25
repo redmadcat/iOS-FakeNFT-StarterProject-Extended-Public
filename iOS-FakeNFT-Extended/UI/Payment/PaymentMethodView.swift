@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PaymentMethodView: View {
+    @Environment(CartViewModel.self) private var parent
+    @State private var showAlert = false
     @State private var context: PaymentMethodViewModel
     @State private var selectedCurrency: Currency?
     
@@ -44,7 +46,9 @@ struct PaymentMethodView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationBackButton()
+                    NavigationBackButton() {
+                        parent.forceRefresh = false
+                    }
                 }
             }
             .background(.ypWhiteAD)
@@ -80,12 +84,25 @@ struct PaymentMethodView: View {
             
             Button {
                 Task {
-                    await context.pay(currency: selectedCurrency)
+                    await pay()
                 }
             } label: {
                 Text("PaymentMethodView.pay")
                     .font(.largeBold)
                     .foregroundStyle(.ypWhiteAD)
+            }
+            .alert(
+                Text("PaymentMethodView.payment.failed"),
+                isPresented: $showAlert)
+            {
+                Button("PaymentMethodView.payment.cancel", role: .cancel) {
+                    showAlert = false
+                }
+                Button("PaymentMethodView.payment.retry") {
+                    Task {
+                        await pay()
+                    }
+                }
             }
             .disabled(selectedCurrency == nil)
             .frame(maxWidth: .infinity, minHeight: 60)
@@ -111,6 +128,16 @@ struct PaymentMethodView: View {
                 topTrailingRadius: 12
             )
         )
+    }
+    
+    private func pay() async {
+        await parent.pay(currency: selectedCurrency) { failureStatus in
+            if failureStatus {
+                showAlert = failureStatus
+            } else {
+                Router.shared.toPaymentResult(refresh: false)
+            }
+        }
     }
 }
 
