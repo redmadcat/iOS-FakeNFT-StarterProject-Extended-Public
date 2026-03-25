@@ -30,10 +30,11 @@ struct TabBarView: View {
                         networkClient: DefaultNetworkClient(),
                         storage: CurrencyStorageImpl())))
                         .environment(parent)
-                case .paymentResult(_):
+                case .paymentResult:
                     PaymentSuccessView()
-                case .agreement:
+                case .agreement(let parent):
                     UserAgreementView()
+                        .environment(parent)
                 }
             }
             .onAppear() {
