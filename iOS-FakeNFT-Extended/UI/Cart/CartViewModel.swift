@@ -100,7 +100,7 @@ final class CartViewModel {
             try await service.clear()
             nfts.removeAll()
         } catch {
-            print(error)
+            print(error.localizedDescription)
         }
     }
 }
