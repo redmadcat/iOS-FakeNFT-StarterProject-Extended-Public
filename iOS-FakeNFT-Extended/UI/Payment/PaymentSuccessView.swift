@@ -33,13 +33,12 @@ struct PaymentSuccessView: View {
             .background(.ypBlackAD)
             .buttonStyle(.plain)
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .padding(.bottom, 50)
+            .padding(.bottom, 16)
             .padding([.leading, .trailing], 20)
         }
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
-        .ignoresSafeArea(.all)
         .background(.ypWhiteAD)
     }
 }
