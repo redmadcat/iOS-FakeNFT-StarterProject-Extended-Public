@@ -13,6 +13,7 @@ final class CartViewModel {
     private(set) var nfts: [Nft] = []
     private(set) var status: APIResponseStatus = .default
     private let service: NftOrderService
+    var forceRefresh: Bool = true
     
     init(service: NftOrderService) {
         self.service = service
@@ -56,6 +57,9 @@ final class CartViewModel {
     }
     
     func load(_ predicate: NtfOrderPredicate?) async {
+        defer { forceRefresh = true }
+        if !forceRefresh { return }
+        
         do {
             status = .loading
             nfts = try await service.load()
@@ -66,6 +70,37 @@ final class CartViewModel {
         } catch {
             print(error.localizedDescription)
             status = .failure
+        }
+    }
+    
+    func pay(currency: Currency?, completion: (Bool) -> Void) async {
+        guard let currency else { return }
+
+        do {
+            status = .loading
+            let response = try await service.pay(currency: currency)
+            if response.success {
+                await clear()
+                completion(false)
+            }
+            status = .success
+        } catch PaymentTransaction.failed {
+            status = .failure
+            completion(true)
+        } catch {
+            print(error.localizedDescription)
+            status = .failure
+            completion(true)
+        }
+    }
+    
+    private func clear() async {
+        forceRefresh = false
+        do {
+            try await service.clear()
+            nfts.removeAll()
+        } catch {
+            print(error)
         }
     }
 }
