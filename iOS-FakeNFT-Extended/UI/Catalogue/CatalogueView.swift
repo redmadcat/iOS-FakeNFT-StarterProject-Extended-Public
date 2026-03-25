@@ -10,74 +10,82 @@ import SwiftUI
 struct CatalogueView: View {
     var vm : CatalogueViewModel
     @State private var showSort = false
+    @State private var path: [SelectionType] = []
     var body: some View {
-        VStack{
-            HStack{
-                Spacer()
-                Button(action: {
-                    showSort = true
-                }, label: {
-                    Image(.sortIcon)
-                })
-                .frame(width: 42, height: 42)
-            }
-            .frame(height: 42)
-            ZStack{
-                if vm.collections.isEmpty {
-                    ProgressView()
+        NavigationStack(path: $path) {
+            VStack{
+                HStack{
+                    Spacer()
+                    Button(action: {
+                        showSort = true
+                    }, label: {
+                        Image(.sortIcon)
+                    })
+                    .frame(width: 42, height: 42)
                 }
-                ScrollView(showsIndicators: false) {
-                    LazyVStack(spacing: 8) {
-                        ForEach(vm.collections) { collection in
-                            Button{
+                .frame(height: 42)
+                ZStack{
+                    if vm.collections.isEmpty {
+                        ProgressView()
+                    }
+                    ScrollView(showsIndicators: false) {
+                        LazyVStack(spacing: 8) {
+                            ForEach(vm.collections, id: \.id) { collection in
                                 
-                            }label:{
-                                CatalogueListRowView(
-                                    imageURL: collection.cover,
-                                    title: collection.name,
-                                    imageCount: collection.nfts.count
-                                )
-                            }
-                            .buttonStyle(.plain)
-                            .onAppear {
-                                if collection.id == vm.collections.last?.id {
-                                    Task {
-                                        await vm.loadCollections()
-                                    }
+                                Button{
+                                    path.append(.collectionNft(collection))
+                                }label:{
+                                    CatalogueListRowView(
+                                        imageURL: collection.cover,
+                                        title: collection.name,
+                                        imageCount: collection.nfts.count
+                                    )
                                 }
+                                .buttonStyle(.plain)
+                                
                             }
                         }
+                        .padding(.top, 20)
+                        
                     }
-                    .padding(.top, 20)
-                    
                 }
             }
-        }
-        .padding()
-        .confirmationDialog(
-            "Сортировка",
-            isPresented: $showSort,
-            titleVisibility: .visible
-        ) {
-            Button("По названию") {
-                Task {
-                    await vm.loadSortByName()
+            .padding()
+            .confirmationDialog(
+                "Сортировка",
+                isPresented: $showSort,
+                titleVisibility: .visible
+            ) {
+                Button("По названию") {
+                    Task {
+                        await vm.sortByName()
+                    }
+                }
+                
+                Button("По количеству NFT") {
+                    Task {
+                        await vm.sortByCount()
+                    }
+                }
+                
+                Button("Закрыть", role: .cancel) { }
+            }
+            .task {
+                await vm.loadCollections()
+            }
+            
+            
+            .navigationDestination(for: SelectionType.self) { type in
+                switch type {
+                case .collectionNft(let collection):
+                    CollectionNFTView(vm: CollectionNFTViewModel(collection: collection)
+                    )
+                   
                 }
             }
             
-            Button("По количеству NFT") {
-                Task {
-                    await vm.loadSortByCount()
-                }
-            }
-            
-            Button("Закрыть", role: .cancel) { }
-        }
-        .task {
-            await vm.loadCollections()
         }
     }
-    
 }
 
 

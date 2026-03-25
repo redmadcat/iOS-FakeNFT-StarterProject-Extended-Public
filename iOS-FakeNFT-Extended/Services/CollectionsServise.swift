@@ -7,8 +7,10 @@
 
 import Foundation
 protocol CollectionsService {
-   func loadCollections(page: Int, sortBy: String?) async throws -> [CollectionModel]
-}
+  // func loadCollections(page: Int, sortBy: String) async throws -> [CollectionModel]
+    func loadCollections() async throws -> [CollectionModel]
+ }
+
 
 @MainActor
 final class CollectionsServiceImpl: CollectionsService {
@@ -19,8 +21,14 @@ final class CollectionsServiceImpl: CollectionsService {
         self.networkClient = networkClient
     }
     
-    func loadCollections(page: Int, sortBy: String? = nil) async throws -> [CollectionModel] {
-        let request = CollectionsRequest(page: page, sortBy: sortBy)
+//    func loadCollections(page: Int, sortBy: String) async throws -> [CollectionModel] {
+//        let request = CollectionsRequest(page: page, sortBy: sortBy)
+//        let collections: [CollectionModel]  = try await networkClient.send(request: request)
+//        print (collections.count)
+//         return collections
+//    }
+    func loadCollections() async throws -> [CollectionModel] {
+        let request = CollectionsRequest()
         let collections: [CollectionModel]  = try await networkClient.send(request: request)
         print (collections.count)
          return collections

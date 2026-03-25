@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct CollectionNFTView: View {
-    @Binding var vm: CollectionNFTViewModel
+    @Environment(\.dismiss) private var dismiss
+    @State var vm: CollectionNFTViewModel
+//    @Binding var path: [SelectionType]
     var body: some View {
         ZStack(alignment: .top) {
             ScrollView(showsIndicators: false){
@@ -22,7 +24,7 @@ struct CollectionNFTView: View {
             }
             .ignoresSafeArea()
             Button {
-               
+               dismiss()
             } label: {
                 HStack {
                     
@@ -96,11 +98,15 @@ struct CollectionNFTView: View {
         }
         .padding(.horizontal, 10 )
         .padding(.top, 24)
+        .navigationBarBackButtonHidden(true)
     }
     
 }
 
 #Preview {
-    @Previewable @State var vm = CollectionNFTViewModel(collection: CollectionModel.mock[0], ntfs: NFTCellModel.mock)
-    CollectionNFTView(vm: $vm)
+ 
+    @Previewable  @State var path: [SelectionType] = [.collectionNft( CollectionModel.mock[0])]
+    let vm = CollectionNFTViewModel(collection: CollectionModel.mock[0], nfts: NFTCellModel.mock)
+   
+    CollectionNFTView(vm: vm)
 }

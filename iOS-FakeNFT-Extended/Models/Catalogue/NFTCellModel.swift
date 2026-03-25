@@ -18,7 +18,8 @@ struct NFTCellModel: Decodable, Identifiable, Sendable , Hashable {
     let website: String
     let id: String
     
-    static let mock = [NFTCellModel(
+    static let mock = [
+        NFTCellModel(
         createdAt: "2026-03-18T20:15:30Z",
         name: "Ruby",
         images: [

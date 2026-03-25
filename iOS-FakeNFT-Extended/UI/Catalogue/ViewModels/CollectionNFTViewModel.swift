@@ -12,15 +12,16 @@ import Foundation
 final class CollectionNFTViewModel {
     
     var collection: CollectionModel
-    var nfts: [NFTCellModel]
+    var nfts: [NFTCellModel] = []
     
     private(set) var likedNFTIds: Set<NFTCellModel> = []
     private(set) var selectedNFTIds: Set<NFTCellModel> = []
     
-    init(collection: CollectionModel, ntfs: [NFTCellModel]){
+    init(collection: CollectionModel, nfts: [NFTCellModel] = []){
         self.collection = collection
-        self.nfts = ntfs
+        self.nfts = nfts
     }
+   
     
     func toggleLike(for nft: NFTCellModel) {
         if likedNFTIds.contains(nft) {
