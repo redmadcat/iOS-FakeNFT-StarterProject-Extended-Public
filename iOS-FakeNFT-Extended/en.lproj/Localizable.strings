@@ -20,6 +20,9 @@
 "PaymentMethodView.pay" = "Оплатить";
 "PaymentMethodView.payment.agreement" = "Совершая покупку, вы соглашаетесь с условиями";
 "PaymentMethodView.payment.legalInfo" = "Пользовательского соглашения";
+"PaymentMethodView.payment.failed" = "Не удалось произвести оплату";
+"PaymentMethodView.payment.cancel" = "Отмена";
+"PaymentMethodView.payment.retry" = "Повторить";
 "UserAgreementView.navigation.title" = "Пользовательское соглашение";
 "PaymentSuccessView.body.title" = "Успех! Оплата прошла, поздравляем с покупкой!";
 "PaymentSuccessView.to.cart" = "Вернуться в корзину";
