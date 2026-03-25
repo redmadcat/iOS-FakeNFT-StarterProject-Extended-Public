@@ -21,3 +21,5 @@
 "PaymentMethodView.payment.agreement" = "Совершая покупку, вы соглашаетесь с условиями";
 "PaymentMethodView.payment.legalInfo" = "Пользовательского соглашения";
 "UserAgreementView.navigation.title" = "Пользовательское соглашение";
+"PaymentSuccessView.body.title" = "Успех! Оплата прошла, поздравляем с покупкой!";
+"PaymentSuccessView.to.cart" = "Вернуться в корзину";
