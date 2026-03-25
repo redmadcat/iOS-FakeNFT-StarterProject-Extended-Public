@@ -112,7 +112,7 @@ struct CartView: View {
             .padding(16)
             
             Button {
-                Router.shared.toPayment()
+                Router.shared.toPayment(parent: context)
             } label: {
                 Text("CartView.total.payment")
                     .font(.largeBold)
