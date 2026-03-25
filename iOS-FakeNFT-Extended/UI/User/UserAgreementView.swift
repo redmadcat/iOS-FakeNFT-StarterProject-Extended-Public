@@ -9,6 +9,7 @@ import SwiftUI
 import WebKit
 
 struct UserAgreementView: View {
+    @Environment(PaymentMethodViewModel.self) private var parent
     @State private var isLoading: Bool = true
     
     var body: some View {
@@ -27,7 +28,9 @@ struct UserAgreementView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                NavigationBackButton()
+                NavigationBackButton() {
+                    parent.forceRefresh = false
+                }
             }
         }
         .background(.ypWhiteAD)
