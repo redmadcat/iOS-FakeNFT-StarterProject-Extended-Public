@@ -36,4 +36,19 @@ final class PaymentMethodViewModel {
             status = .failure
         }
     }
+    
+    func pay(parent: CartViewModel, currency: Currency?, completion: (Bool) -> Void) async {
+        defer { status = .success }
+        
+        status = .loading
+        await parent.pay(currency: currency) { failureStatus in
+            if failureStatus {
+                completion(failureStatus)
+                status = .failure
+            } else {
+                status = .success
+                Router.shared.toPaymentResult()
+            }
+        }
+    }
 }

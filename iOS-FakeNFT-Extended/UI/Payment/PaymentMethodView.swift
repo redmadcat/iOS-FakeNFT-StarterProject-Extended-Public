@@ -31,7 +31,9 @@ struct PaymentMethodView: View {
                             CurrencyItemCell(currency: currency,
                                              isSelected: selectedCurrency == currency)
                                 .onTapGesture {
-                                    selectedCurrency = currency
+                                    if !context.isBusy {
+                                        selectedCurrency = currency
+                                    }
                                 }
                         }
                     }
@@ -49,6 +51,7 @@ struct PaymentMethodView: View {
                     NavigationBackButton() {
                         parent.forceRefresh = false
                     }
+                    .disabled(context.isBusy)
                 }
             }
             .background(.ypWhiteAD)
@@ -58,7 +61,6 @@ struct PaymentMethodView: View {
                         
             ProgressCircle(status: context.status == .loading)
         }
-        .ignoresSafeArea(edges: .bottom)
     }
     
     private var paymentSection: some View {
@@ -77,6 +79,7 @@ struct PaymentMethodView: View {
                         .foregroundColor(.ypBlue)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
+                .disabled(context.isBusy)
                 .padding([.top, .bottom], -4)
                 .buttonStyle(.plain)
             }
@@ -104,38 +107,39 @@ struct PaymentMethodView: View {
                     }
                 }
             }
-            .disabled(selectedCurrency == nil)
+            .disabled(selectedCurrency == nil || context.isBusy)
             .frame(maxWidth: .infinity, minHeight: 60)
             .background(.ypBlackAD)
             .buttonStyle(.plain)
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .padding(.bottom, 50)
+            .padding(.bottom, 16)
             .padding([.leading, .trailing], 20)
         }
         .frame(
             minWidth: 0,
             maxWidth: .infinity,
             minHeight: 0,
-            maxHeight: 186,
+            maxHeight: 152,
             alignment: .bottom
         )
-        .background(.ypLightGreyAD)
-        .clipShape(
-            .rect(
-                topLeadingRadius: 12,
-                bottomLeadingRadius: 0,
-                bottomTrailingRadius: 0,
-                topTrailingRadius: 12
-            )
-        )
+        .background {
+            Color.ypLightGreyAD
+                .clipShape(
+                    .rect(
+                        topLeadingRadius: 12,
+                        bottomLeadingRadius: 0,
+                        bottomTrailingRadius: 0,
+                        topTrailingRadius: 12
+                    )
+                )
+                .ignoresSafeArea()
+        }
     }
     
     private func pay() async {
-        await parent.pay(currency: selectedCurrency) { failureStatus in
+        await context.pay(parent: parent, currency: selectedCurrency) { failureStatus in
             if failureStatus {
                 showAlert = failureStatus
-            } else {
-                Router.shared.toPaymentResult()
             }
         }
     }
