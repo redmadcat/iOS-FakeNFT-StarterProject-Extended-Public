@@ -13,6 +13,7 @@ struct NavigationBackButton: View {
     
     var body: some View {
         Button(action: {
+            if let action { action() }
             dismiss()
         }) {
             Image(systemName: "chevron.left")
