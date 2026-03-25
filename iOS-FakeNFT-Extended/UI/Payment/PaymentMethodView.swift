@@ -70,7 +70,7 @@ struct PaymentMethodView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Button(action: {
-                    Router.shared.toAgreement()
+                    Router.shared.toAgreement(parent: context)
                 }) {
                     Text("PaymentMethodView.payment.legalInfo")
                         .font(.smallRegular)
@@ -135,7 +135,7 @@ struct PaymentMethodView: View {
             if failureStatus {
                 showAlert = failureStatus
             } else {
-                Router.shared.toPaymentResult(refresh: false)
+                Router.shared.toPaymentResult()
             }
         }
     }
