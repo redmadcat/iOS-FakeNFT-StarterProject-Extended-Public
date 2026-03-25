@@ -12,6 +12,7 @@
 		94C3538E2F73342D005DDBA1 /* PaymentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3538D2F733421005DDBA1 /* PaymentResponse.swift */; };
 		94C353902F733485005DDBA1 /* PaymentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3538F2F733480005DDBA1 /* PaymentRequest.swift */; };
 		94C353922F733B35005DDBA1 /* PaymentTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C353912F733B2C005DDBA1 /* PaymentTransaction.swift */; };
+		94C353942F73A615005DDBA1 /* PaymentSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C353932F73A615005DDBA1 /* PaymentSuccessView.swift */; };
 		94CDDC592F692C20003E255F /* NftCardItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDC582F692C20003E255F /* NftCardItemCell.swift */; };
 		94CDDC5F2F697950003E255F /* NftCardDeleteCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDC5E2F697950003E255F /* NftCardDeleteCover.swift */; };
 		94CDDC612F698753003E255F /* BackgroundBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDC602F69874E003E255F /* BackgroundBlurView.swift */; };
@@ -96,6 +97,7 @@
 		94C3538D2F733421005DDBA1 /* PaymentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentResponse.swift; sourceTree = "<group>"; };
 		94C3538F2F733480005DDBA1 /* PaymentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRequest.swift; sourceTree = "<group>"; };
 		94C353912F733B2C005DDBA1 /* PaymentTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTransaction.swift; sourceTree = "<group>"; };
+		94C353932F73A615005DDBA1 /* PaymentSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessView.swift; sourceTree = "<group>"; };
 		94CDDC582F692C20003E255F /* NftCardItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftCardItemCell.swift; sourceTree = "<group>"; };
 		94CDDC5E2F697950003E255F /* NftCardDeleteCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftCardDeleteCover.swift; sourceTree = "<group>"; };
 		94CDDC602F69874E003E255F /* BackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundBlurView.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			children = (
 				94D0C12A2F71479B0031186B /* PaymentMethodViewModel.swift */,
 				94D0C11C2F7131220031186B /* PaymentMethodView.swift */,
+				94C353932F73A615005DDBA1 /* PaymentSuccessView.swift */,
 			);
 			path = Payment;
 			sourceTree = "<group>";
@@ -652,6 +655,7 @@
 				ABC5E1AB2C31FACD002B4068 /* NftService.swift in Sources */,
 				94C353902F733485005DDBA1 /* PaymentRequest.swift in Sources */,
 				94D0C11D2F7131230031186B /* PaymentMethodView.swift in Sources */,
+				94C353942F73A615005DDBA1 /* PaymentSuccessView.swift in Sources */,
 				94D0C1182F7079B70031186B /* NtfOrderStorage.swift in Sources */,
 				94D0C1062F6C18060031186B /* NftGetOrderRequest.swift in Sources */,
 				ABC5E1B22C31FBD4002B4068 /* ExampleRequest.swift in Sources */,
