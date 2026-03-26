@@ -16,20 +16,35 @@ protocol CollectionsService {
 final class CollectionsServiceImpl: CollectionsService {
     
     private let networkClient: NetworkClient
-
-    init(networkClient: NetworkClient) {
+    private let storage: CollectionsStorage
+    init(networkClient: NetworkClient, storage: CollectionsStorage) {
         self.networkClient = networkClient
+        self.storage = storage
     }
+    private let size = 25
     
-//    func loadCollections(page: Int, sortBy: String) async throws -> [CollectionModel] {
-//        let request = CollectionsRequest(page: page, sortBy: sortBy)
-//        let collections: [CollectionModel]  = try await networkClient.send(request: request)
-//        print (collections.count)
-//         return collections
-//    }
     func loadCollections() async throws -> [CollectionModel] {
-        let request = CollectionsRequest()
-        let collections: [CollectionModel]  = try await networkClient.send(request: request)
-         return collections
+        var page = 0
+        let size = 25
+       
+
+        while true {
+            let request = CollectionsRequest(page: page)
+            let collections: [CollectionModel] = try await networkClient.send(request: request)
+            print(collections)
+          await  storage.saveCollections(collections)
+            print("page \(page): \(collections.count)")
+            if collections.isEmpty {
+                break
+            }
+        
+            if collections.count < size {
+                break
+            }
+            page += 1
+        }
+
+        return await storage.getCollections()
     }
+
 }

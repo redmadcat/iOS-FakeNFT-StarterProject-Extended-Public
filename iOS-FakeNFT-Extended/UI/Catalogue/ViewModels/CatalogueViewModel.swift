@@ -13,8 +13,7 @@ final class CatalogueViewModel{
     
     private let collectionsService: CollectionsService
     private let allNftsService: AllNftService
-  //  private  var page: Int = 0
- //   private var sortBy: String = "name,asc"
+  
     init(collectionsService: CollectionsService, allNftsService: AllNftService) {
         self.collectionsService = collectionsService
         self.allNftsService = allNftsService
@@ -24,29 +23,14 @@ final class CatalogueViewModel{
     var nftsCollection : [NFTCellModel] = []
     private var isLoadingCollection = false
     private var isLoadingAllNft = false
-//    let sortByName = "name,asc"
-   // let sortByCount = "nfts,desc"
+
  
     func loadCollections() async {
         guard !isLoadingCollection else { return }
-        
         isLoadingCollection = true
-      
-        
-      
-        
         do {
-//            let newCollections = try await collectionsService.loadCollections(page: page, sortBy: sortBy)
             let newCollections = try await collectionsService.loadCollections()
-            if newCollections.isEmpty {
-                return
-            }
-            
             collections = newCollections
-            print(newCollections.count)
-          //  print("page:", page, "count:", newCollections.count)
-           // page += 1
-            
         } catch {
           isLoadingCollection = false
             print(error)
@@ -58,7 +42,6 @@ final class CatalogueViewModel{
         
         isLoadingAllNft = true
       
-        
         do {
             let newNfts = try await allNftsService.loadAllNft()
             allNfts = newNfts

@@ -93,9 +93,9 @@ struct CatalogueView: View {
 
 #Preview {
     let collectionsService = CollectionsServiceImpl(
-        networkClient: DefaultNetworkClient()
+        networkClient: DefaultNetworkClient(), storage: CollectionsStorageImpl()
     )
-    let allNftService = AllNftServiceImpl(networkClient: DefaultNetworkClient())
+    let allNftService = AllNftServiceImpl(networkClient: DefaultNetworkClient(), storage: AllNftStorageImpl())
     
    let vm = CatalogueViewModel(collectionsService: collectionsService, allNftsService: allNftService)
     CatalogueView(vm: vm)

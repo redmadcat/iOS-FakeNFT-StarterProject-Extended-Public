@@ -8,8 +8,13 @@
 import Foundation
 
 struct AllNftRequest: NetworkRequest {
-
+    var page: Int
     var endpoint: URL? {
-        URL(string: "\(RequestConstants.baseURL)/api/v1/nft")
+        var components = URLComponents(string:"\(RequestConstants.baseURL)/api/v1/nft")
+        components?.queryItems = [
+            URLQueryItem(name: "page", value: "\(page)"),
+        ]
+    
+        return components?.url
     }
 }

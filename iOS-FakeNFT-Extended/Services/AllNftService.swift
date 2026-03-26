@@ -12,23 +12,35 @@ protocol AllNftService {
 
 @MainActor
 final class AllNftServiceImpl: AllNftService {
-
+    
     private let networkClient: NetworkClient
-   // private let storage: NftStorage
-
-    init(networkClient: NetworkClient) {
-       // self.storage = storage
+    private let storage: AllNftStorage
+    
+    init(networkClient: NetworkClient, storage: AllNftStorage) {
+        self.storage = storage
         self.networkClient = networkClient
     }
-
+    
     func loadAllNft() async throws -> [NFTCellModel] {
-//        if let nft = await storage.getNft(with: id) {
-//            return nft
-//        }
+        
+        var page = 0
+        let size = 25
 
-        let request = AllNftRequest()
-        let allNft: [NFTCellModel] = try await networkClient.send(request: request)
-       // await storage.saveNft(nft)
-        return allNft
+        while true {
+            let request = AllNftRequest(page: page)
+            let nfts: [NFTCellModel] = try await networkClient.send(request: request)
+            print(nfts)
+            await  storage.saveNft(nfts)
+            print("page \(page): \(nfts.count)")
+            if nfts.isEmpty {
+                break
+            }
+            if nfts.count < size {
+                break
+            }
+            page += 1
+        }
+        return await storage.getNft()
+        
     }
 }

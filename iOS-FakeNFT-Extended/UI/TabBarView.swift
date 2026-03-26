@@ -2,8 +2,11 @@ import SwiftUI
 
 struct TabBarView: View {
     @State var vm = CatalogueViewModel(
-        collectionsService: CollectionsServiceImpl( networkClient: DefaultNetworkClient()
-    ), allNftsService: AllNftServiceImpl(networkClient: DefaultNetworkClient()))
+        collectionsService: CollectionsServiceImpl( networkClient: DefaultNetworkClient(),
+                                                    storage: CollectionsStorageImpl()
+                           ),
+        allNftsService: AllNftServiceImpl(networkClient: DefaultNetworkClient(),
+                                          storage: AllNftStorageImpl()))
     var body: some View {
         TabView {
             TestCatalogView()
