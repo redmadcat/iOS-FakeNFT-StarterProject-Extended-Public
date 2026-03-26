@@ -2,11 +2,8 @@ import SwiftUI
 
 struct TabBarView: View {
     @State var vm = CatalogueViewModel(
-        collectionsService: CollectionsServiceImpl( networkClient: DefaultNetworkClient(),
-                                                    storage: CollectionsStorageImpl()
-                           ),
-        allNftsService: AllNftServiceImpl(networkClient: DefaultNetworkClient(),
-                                          storage: AllNftStorageImpl()))
+        ServiceAssembly: ServicesAssembly(networkClient: DefaultNetworkClient())
+    )
     var body: some View {
         TabView {
             TestCatalogView()
@@ -30,6 +27,7 @@ struct TabBarView: View {
         .task {
             await vm.loadCollections()
             await vm.loadAllNfts()
+            await vm.loadOrder()
         }
     }
 }

@@ -10,14 +10,12 @@ import Foundation
 @Observable
 
 final class CatalogueViewModel{
-    
-    private let collectionsService: CollectionsService
-    private let allNftsService: AllNftService
-  
-    init(collectionsService: CollectionsService, allNftsService: AllNftService) {
-        self.collectionsService = collectionsService
-        self.allNftsService = allNftsService
+     let serviceAssembly: ServicesAssembly
+   
+    init(ServiceAssembly: ServicesAssembly) {
+        self.serviceAssembly = ServiceAssembly
     }
+    
     private(set) var collections: [CollectionModel] = []
     private(set) var allNfts: [NFTCellModel] = []
     var nftsCollection : [NFTCellModel] = []
@@ -26,6 +24,7 @@ final class CatalogueViewModel{
 
  
     func loadCollections() async {
+        let collectionsService = serviceAssembly.collectionsService
         guard !isLoadingCollection else { return }
         isLoadingCollection = true
         do {
@@ -38,6 +37,7 @@ final class CatalogueViewModel{
     }
     
     func loadAllNfts() async {
+        let allNftsService = serviceAssembly.allNftsService
         guard !isLoadingAllNft else { return }
         
         isLoadingAllNft = true
@@ -51,34 +51,29 @@ final class CatalogueViewModel{
             print(error)
         }
     }
+    func loadOrder() async {
+        let nftOrderService = serviceAssembly.nftOrderService
+        do {
+            let i = try await nftOrderService.load()
+            print("корзина загрузилась \(i)")
+        } catch {
+            print("корзина  не загрузилась")
+            print(error)
+        }
+    }
 
     func sortByName() async {
         collections.sort { $0.name.lowercased() < $1.name.lowercased() }
-        
-//        sortBy = sortByName
-//        page = 0
-//        collections.removeAll()
-       // await loadCollections()
     }
 
     func sortByCount() async {
         collections.sort { $0.nfts.count > $1.nfts.count }
-       // sortBy  = sortByCount
-       // page = 0
-       // collections.removeAll()
-       // await loadCollections()
     }
     
   
         func mapNftsToCollection(collection: CollectionModel) -> [NFTCellModel] {
             let ids = Set(collection.nfts)
-            
             let result = allNfts.filter { ids.contains($0.id) }
-            
-//            print("IDs from collection:", ids)
-//            print("All NFTs count:", allNfts)
-//            print("Mapped NFTs count:", result.count)
-            
             return result
         
     }

@@ -76,7 +76,7 @@ struct CatalogueView: View {
             .navigationDestination(for: SelectionType.self) { type in
                 switch type {
                 case .collectionNft(let collection, let nfts):
-                    CollectionNFTView(vm: CollectionNFTViewModel(collection: collection, nfts: nfts),path: $path
+                    CollectionNFTView(vm: CollectionNFTViewModel(collection: collection, nfts: nfts, nflOrderService: vm.serviceAssembly.nftOrderService) ,path: $path
                     )
                 case .webView(let url):
                     if let webURL = URL(string: url) {
@@ -92,11 +92,8 @@ struct CatalogueView: View {
 
 
 #Preview {
-    let collectionsService = CollectionsServiceImpl(
-        networkClient: DefaultNetworkClient(), storage: CollectionsStorageImpl()
-    )
-    let allNftService = AllNftServiceImpl(networkClient: DefaultNetworkClient(), storage: AllNftStorageImpl())
-    
-   let vm = CatalogueViewModel(collectionsService: collectionsService, allNftsService: allNftService)
+  
+   let vm = CatalogueViewModel(
+    ServiceAssembly: ServicesAssembly(networkClient: DefaultNetworkClient()))
     CatalogueView(vm: vm)
 }
