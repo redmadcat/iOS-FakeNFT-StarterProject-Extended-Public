@@ -29,7 +29,7 @@ struct NFTCellModel: Decodable, Identifiable, Sendable , Hashable {
         description: "Очень крутой NFT, купи срочно",
         price: 12.5,
         author: "Peach",
-        website: "https://peach.com",
+        website: "https://github.com/redmadcat/iOS-FakeNFT-StarterProject-Extended-Public/pull/34",
         id: "1"
     ),
                        NFTCellModel(
@@ -42,7 +42,7 @@ struct NFTCellModel: Decodable, Identifiable, Sendable , Hashable {
                         description: "Очень крутой NFT, купи срочно",
                         price: 12.5,
                         author: "Peach",
-                        website: "https://peach.com",
+                        website: "https://github.com/redmadcat/iOS-FakeNFT-StarterProject-Extended-Public/pull/34",
                         id: "2"
                        ),
                        NFTCellModel(

@@ -32,3 +32,11 @@ struct WebViewContainer: View {
         .navigationBarBackButtonHidden(true)
     }
 }
+
+    #Preview {
+        WebViewContainer(
+            url: URL(string: "https://practicum.yandex.ru")!,
+            path: .constant([])
+        )
+    }
+
