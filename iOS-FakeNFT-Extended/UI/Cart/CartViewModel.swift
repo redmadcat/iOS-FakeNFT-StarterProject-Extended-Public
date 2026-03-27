@@ -81,12 +81,12 @@ final class CartViewModel {
             let response = try await service.pay(currency: currency)
             if response.success {
                 await clear()
+                status = .success
                 completion(false)
+            } else {
+                status = .failure
+                completion(true)
             }
-            status = .success
-        } catch PaymentTransaction.failed {
-            status = .failure
-            completion(true)
         } catch {
             print(error.localizedDescription)
             status = .failure
