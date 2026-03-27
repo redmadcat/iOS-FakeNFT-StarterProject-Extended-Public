@@ -57,11 +57,7 @@ final class NftOrderServiceImpl: NftOrderService {
     func pay(currency: Currency) async throws -> PaymentResponse {
         let request = PaymentRequest(currencyId: currency.id)
         let response: PaymentResponse = try await networkClient.send(request: request)
-        
-        guard response.success else {
-            throw PaymentTransaction.failed
-        }
-        
+            
         return response
     }
     
