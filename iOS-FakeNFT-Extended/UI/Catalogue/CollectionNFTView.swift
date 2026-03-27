@@ -99,11 +99,14 @@ struct CollectionNFTView: View {
         ]
         return  LazyVGrid(columns: columns, spacing: 8) {
             ForEach(vm.nfts) { nft in
-                CollectionRowView( isLike: vm.likedNFTIds.contains(nft),
+                CollectionRowView( isLike: vm.likedNFTIds.contains(nft.id),
                                    isSelected: vm.selectedIds.contains(nft.id),
                                    nftCell: nft,
                                    actionLike: {
-                    vm.toggleLike(for: nft)
+                    Task {
+                     await vm.toggleLike(for: nft)
+                       }
+
                 },
                                    actionSelect: {
                     Task {
@@ -118,15 +121,16 @@ struct CollectionNFTView: View {
         .navigationBarBackButtonHidden(true)
         .task {
             await vm.loadSelected()
+            await vm.loadLikes()
         }
     }
     
 }
 
 #Preview {
- 
     @Previewable  @State var path: [SelectionType] = [.collectionNft( CollectionModel.mock[0], NFTCellModel.mock)]
-    let vm = CollectionNFTViewModel(collection: CollectionModel.mock[0], nfts: NFTCellModel.mock, nflOrderService: NftOrderServiceImpl(networkClient: DefaultNetworkClient(), storage: NftOrderStorageImpl()))
+    
+    let vm = CollectionNFTViewModel(collection: CollectionModel.mock[0], nfts: NFTCellModel.mock,  serviceAssembly: ServicesAssembly(networkClient: DefaultNetworkClient()))
    
     CollectionNFTView(vm: vm, path: $path)
 }

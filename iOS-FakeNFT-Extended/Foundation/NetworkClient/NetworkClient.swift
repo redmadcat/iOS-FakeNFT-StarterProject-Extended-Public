@@ -71,7 +71,9 @@ actor DefaultNetworkClient: NetworkClient {
 
     private func parse<T: Decodable>(data: Data) async throws -> T {
         do {
+            
             return try decoder.decode(T.self, from: data)
+            
         } catch {
             throw NetworkClientError.parsingError
         }

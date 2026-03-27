@@ -11,9 +11,10 @@ import Foundation
 
 final class CatalogueViewModel{
      let serviceAssembly: ServicesAssembly
-   
-    init(ServiceAssembly: ServicesAssembly) {
-        self.serviceAssembly = ServiceAssembly
+    let collectionsService: CollectionsService
+    init(serviceAssembly: ServicesAssembly) {
+        self.serviceAssembly = serviceAssembly
+        self.collectionsService = serviceAssembly.collectionsService
     }
     
     private(set) var collections: [CollectionModel] = []
@@ -75,5 +76,15 @@ final class CatalogueViewModel{
             return result
         
     }
+    
+    func loadUserProfile() async {
+        let userService = serviceAssembly.likesService
+        do{
+            _ = try await userService.load()
+        } catch {
+            print(error)
+        }
+    }
+    
     
 }

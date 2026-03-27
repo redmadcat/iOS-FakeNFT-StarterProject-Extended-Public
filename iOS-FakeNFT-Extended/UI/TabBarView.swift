@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TabBarView: View {
     @State var vm = CatalogueViewModel(
-        ServiceAssembly: ServicesAssembly(networkClient: DefaultNetworkClient())
+        serviceAssembly: ServicesAssembly(networkClient: DefaultNetworkClient())
     )
     var body: some View {
         TabView {
@@ -28,6 +28,7 @@ struct TabBarView: View {
             await vm.loadCollections()
             await vm.loadAllNfts()
             await vm.loadOrder()
+            await vm.loadUserProfile()
         }
     }
 }
