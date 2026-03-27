@@ -10,21 +10,19 @@ import Foundation
 @Observable
 
 final class CollectionNFTViewModel {
-  
+    
     var collection: CollectionModel
     var nfts: [NFTCellModel] = []
     let nftOrderService: NftOrderService
+    var selectedIds: Set<String> = []
     
     private(set) var likedNFTIds: Set<NFTCellModel> = []
-   
     
     init(collection: CollectionModel, nfts: [NFTCellModel] = [], nflOrderService: NftOrderService){
         self.collection = collection
         self.nfts = nfts
         self.nftOrderService = nflOrderService
     }
- 
-    private(set) var nftsOrder: [Nft] = []
     
     func selectNft(_ nft: NFTCellModel) async {
         let urls = nft.images.compactMap { URL(string: $0) }
@@ -33,21 +31,21 @@ final class CollectionNFTViewModel {
             print("Нет валидных URL")
             return
         }
-        
         let model = Nft(id: nft.id, images: urls)
-        print("000000\(model)")
         do {
-            nftsOrder = try await nftOrderService.selectNft(model)
-            print(nftsOrder)
+            _ = try await nftOrderService.selectNft(model)
+            await loadSelected()
         }
         catch {
             print(error)
         }
     }
-   
-    func isSelected(nft: NFTCellModel) -> Bool {
-        nftsOrder.contains(where: { $0.id == nft.id })
+    func loadSelected() async {
+        let cache = await nftOrderService.getCache()
+        selectedIds = Set(cache.map { $0.id })
     }
+    
+    
     
     func toggleLike(for nft: NFTCellModel) {
         if likedNFTIds.contains(nft) {
@@ -57,22 +55,6 @@ final class CollectionNFTViewModel {
         }
     }
     
-    func toggleSelection(for nft: NFTCellModel) async {
-        let urls = nft.images.compactMap { URL(string: $0) }
-
-        guard !urls.isEmpty else {
-            print("Нет валидных URL")
-            return
-        }
-
-        let model = Nft(id: nft.id, images: urls)
-        do {
-          nftsOrder = try await nftOrderService.remove(model)
-            
-        } catch {
-            print(error)
-        }
-     
-    }
+    
     
 }

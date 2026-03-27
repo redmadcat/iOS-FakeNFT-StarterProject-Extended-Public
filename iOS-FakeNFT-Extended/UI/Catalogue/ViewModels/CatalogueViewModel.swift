@@ -45,7 +45,6 @@ final class CatalogueViewModel{
         do {
             let newNfts = try await allNftsService.loadAllNft()
             allNfts = newNfts
-            print (allNfts.count)
         } catch {
             isLoadingAllNft = false
             print(error)
@@ -54,10 +53,9 @@ final class CatalogueViewModel{
     func loadOrder() async {
         let nftOrderService = serviceAssembly.nftOrderService
         do {
-            let i = try await nftOrderService.load()
-            print("корзина загрузилась \(i)")
+            _ = try await nftOrderService.load()
+           
         } catch {
-            print("корзина  не загрузилась")
             print(error)
         }
     }

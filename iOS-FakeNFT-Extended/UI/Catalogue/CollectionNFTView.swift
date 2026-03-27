@@ -10,7 +10,6 @@ import SwiftUI
 struct CollectionNFTView: View {
     @Environment(\.dismiss) private var dismiss
     @State var vm: CollectionNFTViewModel
-    @State private var selectedURL: URL?
     @Binding var path: [SelectionType]
     var body: some View {
         ZStack(alignment: .top) {
@@ -101,7 +100,7 @@ struct CollectionNFTView: View {
         return  LazyVGrid(columns: columns, spacing: 8) {
             ForEach(vm.nfts) { nft in
                 CollectionRowView( isLike: vm.likedNFTIds.contains(nft),
-                                   isSelected: vm.isSelected(nft: nft),
+                                   isSelected: vm.selectedIds.contains(nft.id),
                                    nftCell: nft,
                                    actionLike: {
                     vm.toggleLike(for: nft)
@@ -117,6 +116,9 @@ struct CollectionNFTView: View {
         .padding(.horizontal, 10 )
         .padding(.top, 24)
         .navigationBarBackButtonHidden(true)
+        .task {
+            await vm.loadSelected()
+        }
     }
     
 }

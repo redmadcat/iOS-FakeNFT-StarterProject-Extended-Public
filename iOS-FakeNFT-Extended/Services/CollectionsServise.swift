@@ -31,9 +31,7 @@ final class CollectionsServiceImpl: CollectionsService {
         while true {
             let request = CollectionsRequest(page: page)
             let collections: [CollectionModel] = try await networkClient.send(request: request)
-            print(collections)
           await  storage.saveCollections(collections)
-            print("page \(page): \(collections.count)")
             if collections.isEmpty {
                 break
             }

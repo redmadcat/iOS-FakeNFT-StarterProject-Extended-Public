@@ -29,9 +29,8 @@ final class AllNftServiceImpl: AllNftService {
         while true {
             let request = AllNftRequest(page: page)
             let nfts: [NFTCellModel] = try await networkClient.send(request: request)
-            print(nfts)
+           
             await  storage.saveNft(nfts)
-            print("page \(page): \(nfts.count)")
             if nfts.isEmpty {
                 break
             }

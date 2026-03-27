@@ -13,6 +13,7 @@ protocol NftOrderStorage: AnyObject {
     func remove(_ nft: Nft) async
     func clear() async
     var cache: [Nft] { get async }
+   
 }
 
 actor NftOrderStorageImpl: NftOrderStorage {
@@ -35,6 +36,7 @@ actor NftOrderStorageImpl: NftOrderStorage {
 //        }
 //    }
     
+   
     func remove(_ nft: Nft) async {
         cache.removeAll(where: { $0.id == nft.id })
     }
