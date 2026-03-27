@@ -19,7 +19,7 @@ final class PaymentMethodViewModel {
         self.service = service
     }
     
-    var isBusy: Bool {
+    var isLoading: Bool {
         status == .loading
     }
     

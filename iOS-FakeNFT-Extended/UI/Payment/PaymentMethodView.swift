@@ -31,7 +31,7 @@ struct PaymentMethodView: View {
                             CurrencyItemCell(currency: currency,
                                              isSelected: selectedCurrency == currency)
                                 .onTapGesture {
-                                    if !context.isBusy {
+                                    if !context.isLoading {
                                         selectedCurrency = currency
                                     }
                                 }
@@ -51,7 +51,7 @@ struct PaymentMethodView: View {
                     NavigationBackButton() {
                         parent.forceRefresh = false
                     }
-                    .disabled(context.isBusy)
+                    .disabled(context.isLoading)
                 }
             }
             .background(.ypWhiteAD)
@@ -59,7 +59,7 @@ struct PaymentMethodView: View {
                 await context.load()
             }
                         
-            ProgressCircle(status: context.status == .loading)
+            ProgressCircle(status: context.isLoading)
         }
     }
     
@@ -79,7 +79,7 @@ struct PaymentMethodView: View {
                         .foregroundColor(.ypBlue)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .disabled(context.isBusy)
+                .disabled(context.isLoading)
                 .padding([.top, .bottom], -4)
                 .buttonStyle(.plain)
             }
@@ -107,7 +107,7 @@ struct PaymentMethodView: View {
                     }
                 }
             }
-            .disabled(selectedCurrency == nil || context.isBusy)
+            .disabled(selectedCurrency == nil || context.isLoading)
             .frame(maxWidth: .infinity, minHeight: 60)
             .background(.ypBlackAD)
             .buttonStyle(.plain)
