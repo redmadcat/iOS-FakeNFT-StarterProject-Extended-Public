@@ -31,7 +31,6 @@ struct CatalogueView: View {
                     ScrollView(showsIndicators: false) {
                         LazyVStack(spacing: 8) {
                             ForEach(vm.collections) { collection in
-                                
                                 Button{
                                     let nfts =  vm.mapNftsToCollection(collection: collection)
                                     path.append(.collectionNft(collection, nfts))
@@ -43,11 +42,9 @@ struct CatalogueView: View {
                                     )
                                 }
                                 .buttonStyle(.plain)
-                                
                             }
                         }
                         .padding(.top, 20)
-                        
                     }
                 }
             }
@@ -72,7 +69,6 @@ struct CatalogueView: View {
                 Button("Закрыть", role: .cancel) { }
             }
 
-            
             .navigationDestination(for: SelectionType.self) { type in
                 switch type {
                 case .collectionNft(let collection, let nfts):

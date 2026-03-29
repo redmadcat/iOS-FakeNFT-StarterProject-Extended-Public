@@ -11,7 +11,6 @@ protocol UserProfileStorage: AnyObject {
     func saveProfile(_ profile: UserProfile) async
     func getProfile() async -> UserProfile?
     func getLikes() async -> Set<String>
-   
     func addLike(_ nftId: String) async
     func removeLike(_ nftId: String) async
     func toggleLike(_ nftId: String) async -> Bool

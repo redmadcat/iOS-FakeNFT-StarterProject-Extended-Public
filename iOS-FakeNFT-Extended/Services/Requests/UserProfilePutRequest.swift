@@ -17,7 +17,6 @@ struct UserProfilePutRequest: NetworkRequest {
     var httpMethod: HttpMethod { .put }
     var body: Data? {
         let likesParams = likes.map { "likes=\($0.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? $0)" }
-        print("📤 Sending likes: \(likesParams.joined(separator: "&"))")
         return likesParams.joined(separator: "&").data(using: .utf8)
     }
 }

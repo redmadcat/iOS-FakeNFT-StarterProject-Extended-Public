@@ -25,7 +25,6 @@ struct CollectionRowView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(nftCell.name)
                         .font(.system(size: 17, weight: .bold))
-                    
                     Text("\(formattedPrice) ETH")
                         .font(.system(size: 10, weight: .medium))
                 }
@@ -52,6 +51,7 @@ struct CollectionRowView: View {
             }
             .padding(.bottom, 4)
     }
+    
     var ratingView: some View {
         HStack(spacing: 2) {
             ForEach(1...5, id: \.self) { i in
@@ -79,7 +79,7 @@ struct CollectionRowView: View {
 #Preview {
     @Previewable @State var isLike: Bool = false
     @Previewable @State var isSelected: Bool = false
-   
+    
     CollectionRowView(isLike: isLike, isSelected: isSelected,
-                     nftCell: NFTCellModel.mock[0], actionLike: {isLike = !isLike}, actionSelect: {isSelected = !isSelected})
+                      nftCell: NFTCellModel.mock[0], actionLike: {isLike = !isLike}, actionSelect: {isSelected = !isSelected})
 }

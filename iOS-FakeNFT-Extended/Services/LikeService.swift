@@ -25,7 +25,6 @@ final class LikeServiceImpl: LikeService {
         self.storage = storage
     }
     
-    
     func load() async throws -> [String] {
         let profile: UserProfile = try await networkClient.send(request: UserProfileGetRequest())
         let likes = profile.likes

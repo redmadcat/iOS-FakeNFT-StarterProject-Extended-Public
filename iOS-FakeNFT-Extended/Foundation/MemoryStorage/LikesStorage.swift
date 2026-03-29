@@ -38,14 +38,13 @@ actor LikesStorageImpl: LikesStorage {
         cache.removeAll { $0 == nftId }
     }
     
-   
     func toggleLike(_ nftId: String) async -> Bool {
         if cache.contains(nftId) {
             cache.removeAll { $0 == nftId }
-            return false // Лайк удален
+            return false
         } else {
             cache.append(nftId)
-            return true // Лайк добавлен
+            return true
         }
     }
     

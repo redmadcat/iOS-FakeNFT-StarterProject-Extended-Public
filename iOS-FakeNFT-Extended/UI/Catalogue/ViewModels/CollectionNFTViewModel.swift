@@ -54,8 +54,6 @@ final class CollectionNFTViewModel {
         likedNFTIds = Set(cache)
     }
     
-    
-    
     func toggleLike(for nft: NFTCellModel) async {
         do {
             _ = try await likeService.toggleLike(nft.id)
@@ -63,9 +61,7 @@ final class CollectionNFTViewModel {
         } catch {
             print(error)
         }
-      
+        
     }
-    
-    
     
 }

@@ -12,7 +12,6 @@ protocol AllNftStorage: AnyObject {
     func getNft() async -> [NFTCellModel]
 }
 
-
 actor AllNftStorageImpl: AllNftStorage {
     
     private var storage: [NFTCellModel] = []

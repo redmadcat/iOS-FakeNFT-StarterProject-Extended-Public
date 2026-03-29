@@ -44,7 +44,6 @@
 		ABC5E1EB2C32084F002B4068 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ABC5E1E92C32084F002B4068 /* Localizable.strings */; };
 		E88EE35A2F60A0B000AC1D82 /* CatalogueListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE3592F60A0B000AC1D82 /* CatalogueListRowView.swift */; };
 		E88EE3622F61EAB100AC1D82 /* CatalogueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE3612F61EAB100AC1D82 /* CatalogueView.swift */; };
-		E88EE3682F62021700AC1D82 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE3672F62021700AC1D82 /* Collections.swift */; };
 		E88EE36A2F633D7500AC1D82 /* CollectionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE3692F633D7500AC1D82 /* CollectionRowView.swift */; };
 		E88EE36C2F69EFCD00AC1D82 /* KFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE36B2F69EFCD00AC1D82 /* KFImageView.swift */; };
 		E88EE36E2F69FAB700AC1D82 /* CollectionNFTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88EE36D2F69FAB700AC1D82 /* CollectionNFTView.swift */; };
@@ -132,7 +131,6 @@
 		ABC5E1EA2C32084F002B4068 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E88EE3592F60A0B000AC1D82 /* CatalogueListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogueListRowView.swift; sourceTree = "<group>"; };
 		E88EE3612F61EAB100AC1D82 /* CatalogueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogueView.swift; sourceTree = "<group>"; };
-		E88EE3672F62021700AC1D82 /* Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
 		E88EE3692F633D7500AC1D82 /* CollectionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionRowView.swift; sourceTree = "<group>"; };
 		E88EE36B2F69EFCD00AC1D82 /* KFImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KFImageView.swift; sourceTree = "<group>"; };
 		E88EE36D2F69FAB700AC1D82 /* CollectionNFTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionNFTView.swift; sourceTree = "<group>"; };
@@ -407,7 +405,6 @@
 		E88EE3662F6201CC00AC1D82 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
-				E88EE3672F62021700AC1D82 /* Collections.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -629,7 +626,6 @@
 				ABC5E1A82C31FA90002B4068 /* DateFormatters+Presets.swift in Sources */,
 				E8FB5E272F730817004E4A90 /* AllNftService.swift in Sources */,
 				E8B42A142F746C280056FE41 /* TestView.swift in Sources */,
-				E88EE3682F62021700AC1D82 /* Collections.swift in Sources */,
 				ABC5E1D12C32042C002B4068 /* NftDetailPresenter.swift in Sources */,
 				ABC5E1B02C31FB90002B4068 /* RequestConstants.swift in Sources */,
 			);
