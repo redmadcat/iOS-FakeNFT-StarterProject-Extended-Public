@@ -25,4 +25,14 @@ final class NftServiceImpl: NftService {
         await storage.saveNft(nft)
         return nft
     }
+    func testLoadNft(id: String) async {
+        do {
+            let nft = try await loadNft(id: id)
+            print("✅ NFT получен:")
+            print("\(nft.images)")
+           
+        } catch {
+            print("❌ Ошибка при загрузке NFT:", error)
+        }
+    }
 }

@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct TabBarView: View {
+    @State var vm = CatalogueViewModel(
+        serviceAssembly: ServicesAssembly(networkClient: DefaultNetworkClient())
+    )
     var body: some View {
         TabView {
             TestCatalogView()
@@ -11,6 +14,21 @@ struct TabBarView: View {
                     )
                 }
                 .backgroundStyle(.background)
+            
+            CatalogueView(vm: vm)
+                .tabItem {
+                    Label(
+                        NSLocalizedString("Tab.catalog", comment: ""),
+                        image: .catalogue
+                    )
+                }
+            
+        }
+        .task {
+            await vm.loadCollections()
+            await vm.loadAllNfts()
+            await vm.loadOrder()
+            await vm.loadUserProfile()
         }
     }
 }
