@@ -11,13 +11,13 @@ protocol CollectionsStorage: AnyObject {
     func getCollections() async -> [CollectionModel]
 }
 
-// Пример простого актора, который сохраняет данные из сети
 actor CollectionsStorageImpl: CollectionsStorage {
     private var storage: [CollectionModel] = []
     
     func saveCollections(_ collection: [CollectionModel]) async {
         let existingIds = Set(storage.map { $0.id })
-          let newItems = storage.filter { !existingIds.contains($0.id) }
+          let newItems = collection.filter { !existingIds.contains($0.id) }
+        
           storage.append(contentsOf: newItems)
     }
     func clearCollections() {

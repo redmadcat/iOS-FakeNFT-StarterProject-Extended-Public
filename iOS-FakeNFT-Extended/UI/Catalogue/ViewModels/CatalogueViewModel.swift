@@ -10,48 +10,81 @@ import Foundation
 @Observable
 
 final class CatalogueViewModel{
-    
-    private let collectionsService: CollectionsService
-    private  var page: Int = 0
-    private var sortBy: String?
-    init(collectionsService: CollectionsService) {
-        self.collectionsService = collectionsService
+     let serviceAssembly: ServicesAssembly
+    let collectionsService: CollectionsService
+    init(serviceAssembly: ServicesAssembly) {
+        self.serviceAssembly = serviceAssembly
+        self.collectionsService = serviceAssembly.collectionsService
     }
-    private(set) var collections: [CollectionModel] = []
-    private var currentTask: Task<Void, Never>?
     
-    let sortByName = "name,asc"
-    let sortByCount = "nfts,desc"
+    private(set) var collections: [CollectionModel] = []
+    private(set) var allNfts: [NFTCellModel] = []
+    var nftsCollection : [NFTCellModel] = []
+    private var isLoadingCollection = false
+    private var isLoadingAllNft = false
+
  
     func loadCollections() async {
-        currentTask?.cancel()
-        currentTask = Task {
-            do {
-                let newCollections = try await collectionsService.loadCollections(page: page, sortBy: sortBy)
-                collections.append(contentsOf: newCollections)
-                self.page += 1
-                print(collections)
-            } catch {
-                if Task.isCancelled { return }
-                print(error)
-            }
+        let collectionsService = serviceAssembly.collectionsService
+        guard !isLoadingCollection else { return }
+        isLoadingCollection = true
+        do {
+            let newCollections = try await collectionsService.loadCollections()
+            collections = newCollections
+        } catch {
+          isLoadingCollection = false
+            print(error)
         }
-        await currentTask?.value
+    }
+    
+    func loadAllNfts() async {
+        let allNftsService = serviceAssembly.allNftsService
+        guard !isLoadingAllNft else { return }
+        
+        isLoadingAllNft = true
+      
+        do {
+            let newNfts = try await allNftsService.loadAllNft()
+            allNfts = newNfts
+        } catch {
+            isLoadingAllNft = false
+            print(error)
+        }
+    }
+    func loadOrder() async {
+        let nftOrderService = serviceAssembly.nftOrderService
+        do {
+            _ = try await nftOrderService.load()
+           
+        } catch {
+            print(error)
+        }
     }
 
-    func loadSortByName() async {
-        currentTask?.cancel()
-        sortBy = sortByName
-        page = 0
-        collections.removeAll()
-        await loadCollections()
+    func sortByName() async {
+        collections.sort { $0.name.lowercased() < $1.name.lowercased() }
     }
 
-    func loadSortByCount() async {
-        currentTask?.cancel()
-        sortBy = sortByCount
-        page = 0
-        collections.removeAll()
-        await loadCollections()
+    func sortByCount() async {
+        collections.sort { $0.nfts.count > $1.nfts.count }
     }
+    
+  
+        func mapNftsToCollection(collection: CollectionModel) -> [NFTCellModel] {
+            let ids = Set(collection.nfts)
+            let result = allNfts.filter { ids.contains($0.id) }
+            return result
+        
+    }
+    
+    func loadUserProfile() async {
+        let userService = serviceAssembly.likesService
+        do{
+            _ = try await userService.load()
+        } catch {
+            print(error)
+        }
+    }
+    
+    
 }

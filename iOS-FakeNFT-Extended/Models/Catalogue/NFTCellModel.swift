@@ -18,7 +18,8 @@ struct NFTCellModel: Decodable, Identifiable, Sendable , Hashable {
     let website: String
     let id: String
     
-    static let mock = [NFTCellModel(
+    static let mock = [
+        NFTCellModel(
         createdAt: "2026-03-18T20:15:30Z",
         name: "Ruby",
         images: [
@@ -28,7 +29,7 @@ struct NFTCellModel: Decodable, Identifiable, Sendable , Hashable {
         description: "Очень крутой NFT, купи срочно",
         price: 12.5,
         author: "Peach",
-        website: "https://peach.com",
+        website: "https://github.com/redmadcat/iOS-FakeNFT-StarterProject-Extended-Public/pull/34",
         id: "1"
     ),
                        NFTCellModel(
@@ -41,7 +42,7 @@ struct NFTCellModel: Decodable, Identifiable, Sendable , Hashable {
                         description: "Очень крутой NFT, купи срочно",
                         price: 12.5,
                         author: "Peach",
-                        website: "https://peach.com",
+                        website: "https://github.com/redmadcat/iOS-FakeNFT-StarterProject-Extended-Public/pull/34",
                         id: "2"
                        ),
                        NFTCellModel(

@@ -8,83 +8,92 @@
 import SwiftUI
 
 struct CatalogueView: View {
-    var vm : CatalogueViewModel
+     let vm : CatalogueViewModel
     @State private var showSort = false
+    @State private var path: [SelectionType] = []
     var body: some View {
-        VStack{
-            HStack{
-                Spacer()
-                Button(action: {
-                    showSort = true
-                }, label: {
-                    Image(.sortIcon)
-                })
-                .frame(width: 42, height: 42)
-            }
-            .frame(height: 42)
-            ZStack{
-                if vm.collections.isEmpty {
-                    ProgressView()
+        NavigationStack(path: $path) {
+            VStack{
+                HStack{
+                    Spacer()
+                    Button(action: {
+                        showSort = true
+                    }, label: {
+                        Image(.sortIcon)
+                    })
+                    .frame(width: 42, height: 42)
                 }
-                ScrollView(showsIndicators: false) {
-                    LazyVStack(spacing: 8) {
-                        ForEach(vm.collections) { collection in
-                            Button{
+                .frame(height: 42)
+                ZStack{
+                    if vm.collections.isEmpty {
+                        ProgressView()
+                    }
+                    ScrollView(showsIndicators: false) {
+                        LazyVStack(spacing: 8) {
+                            ForEach(vm.collections) { collection in
                                 
-                            }label:{
-                                CatalogueListRowView(
-                                    imageURL: collection.cover,
-                                    title: collection.name,
-                                    imageCount: collection.nfts.count
-                                )
-                            }
-                            .buttonStyle(.plain)
-                            .onAppear {
-                                if collection.id == vm.collections.last?.id {
-                                    Task {
-                                        await vm.loadCollections()
-                                    }
+                                Button{
+                                    let nfts =  vm.mapNftsToCollection(collection: collection)
+                                    path.append(.collectionNft(collection, nfts))
+                                }label:{
+                                    CatalogueListRowView(
+                                        imageURL: collection.cover,
+                                        title: collection.name,
+                                        imageCount: collection.nfts.count
+                                    )
                                 }
+                                .buttonStyle(.plain)
+                                
                             }
                         }
+                        .padding(.top, 20)
+                        
                     }
-                    .padding(.top, 20)
-                    
                 }
             }
-        }
-        .padding()
-        .confirmationDialog(
-            "Сортировка",
-            isPresented: $showSort,
-            titleVisibility: .visible
-        ) {
-            Button("По названию") {
-                Task {
-                    await vm.loadSortByName()
+            .padding()
+            .confirmationDialog(
+                "Сортировка",
+                isPresented: $showSort,
+                titleVisibility: .visible
+            ) {
+                Button("По названию") {
+                    Task {
+                        await vm.sortByName()
+                    }
+                }
+                
+                Button("По количеству NFT") {
+                    Task {
+                        await vm.sortByCount()
+                    }
+                }
+                
+                Button("Закрыть", role: .cancel) { }
+            }
+
+            
+            .navigationDestination(for: SelectionType.self) { type in
+                switch type {
+                case .collectionNft(let collection, let nfts):
+                    CollectionNFTView(vm: CollectionNFTViewModel(collection: collection, nfts: nfts, serviceAssembly: vm.serviceAssembly) ,path: $path
+                    )
+                case .webView(let url):
+                    if let webURL = URL(string: url) {
+                        WebViewContainer(url: webURL, path: $path)
+                    }
+                   
                 }
             }
             
-            Button("По количеству NFT") {
-                Task {
-                    await vm.loadSortByCount()
-                }
-            }
-            
-            Button("Закрыть", role: .cancel) { }
-        }
-        .task {
-            await vm.loadCollections()
         }
     }
-    
 }
 
 
 #Preview {
-    let service = CollectionsServiceImpl(
-        networkClient: DefaultNetworkClient()
-    )
-    let vm = CatalogueViewModel(collectionsService: service)
+  
+   let vm = CatalogueViewModel(
+    serviceAssembly: ServicesAssembly(networkClient: DefaultNetworkClient()))
     CatalogueView(vm: vm)
 }
