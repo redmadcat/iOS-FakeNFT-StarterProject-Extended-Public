@@ -16,7 +16,6 @@ struct UserProfile: Codable, Identifiable, Sendable, Hashable {
     let likes: [String]
     let id: String
     
-   
 }
 
 extension UserProfile {

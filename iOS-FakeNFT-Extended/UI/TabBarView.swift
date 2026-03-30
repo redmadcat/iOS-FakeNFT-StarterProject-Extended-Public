@@ -2,9 +2,12 @@ import SwiftUI
 
 struct TabBarView: View {
     @State private var router = Router.shared
-    @State private var vm = CatalogueViewModel(
-        serviceAssembly: ServicesAssembly(networkClient: DefaultNetworkClient())
-    )
+    let  serviceAssembly = ServicesAssembly(networkClient: DefaultNetworkClient())
+    @State private var vm: CatalogueViewModel
+     
+    init() {
+        vm = CatalogueViewModel(serviceAssembly: serviceAssembly)
+    }
     
     var body: some View {
         NavigationStack(path: $router.endpoint) {
@@ -16,9 +19,7 @@ struct TabBarView: View {
                     }
                     .backgroundStyle(.background)
                 
-                CartView(context: CartViewModel(service: NftOrderServiceImpl(
-                    networkClient: DefaultNetworkClient(),
-                    storage: NftOrderStorageImpl())))
+                CartView(context: CartViewModel(service: serviceAssembly.nftOrderService))
                     .tabItem {
                         Image(.cart).renderingMode(.template)
                         Text("Tab.cart")
