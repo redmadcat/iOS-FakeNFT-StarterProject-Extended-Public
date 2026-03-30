@@ -51,11 +51,11 @@ final class CatalogueViewModel{
             print(error)
         }
     }
+    
     func loadOrder() async {
         let nftOrderService = serviceAssembly.nftOrderService
         do {
             _ = try await nftOrderService.load()
-            
         } catch {
             print(error)
         }
@@ -77,7 +77,7 @@ final class CatalogueViewModel{
     
     func loadUserProfile() async {
         let userService = serviceAssembly.likesService
-        do{
+        do {
             _ = try await userService.load()
         } catch {
             print(error)
