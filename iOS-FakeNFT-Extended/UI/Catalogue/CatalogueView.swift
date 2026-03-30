@@ -18,8 +18,9 @@ struct CatalogueView: View {
                 Button(action: {
                     showSort = true
                 }, label: {
-                    Image(.sortIcon)
+                    Image(.sort)
                 })
+                .disabled(vm.collections.isEmpty)
                 .padding(.trailing, 10)
                 .frame(width: 42, height: 42)
                 .buttonStyle(.plain)
@@ -27,6 +28,7 @@ struct CatalogueView: View {
             ZStack {
                 if vm.collections.isEmpty {
                     ProgressView()
+                        .scaleEffect(1.5)
                 }
                 ScrollView(showsIndicators: false) {
                     LazyVStack(spacing: 8) {
