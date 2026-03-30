@@ -8,35 +8,31 @@
 import SwiftUI
 
 struct WebViewContainer: View {
+    @State private var isLoading: Bool = true
     let url: URL
-    @Binding var path: [SelectionType]
 
     var body: some View {
-        VStack(spacing: 0) {
-            Button {
-                path.removeLast()
-                
-            } label: {
-                HStack {
-                    Image(systemName: "chevron.left")
-                        .foregroundStyle(.black)
-                        .frame(height: 42)
-                        .padding(.leading, 16)
-                    Spacer()
-                }
-            }
-          
-            WebView(url: url)
+        ZStack {
+            VStack {
+                WebView(url: url, isLoading: $isLoading)
                 .edgesIgnoringSafeArea(.bottom)
+            }
+            
+            ProgressCircle(status: isLoading)
         }
         .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                NavigationBackButton()
+            }
+        }
     }
 }
 
-    #Preview {
-        WebViewContainer(
-            url: URL(string: "https://practicum.yandex.ru")!,
-            path: .constant([])
-        )
-    }
+#Preview {
+    WebViewContainer(
+        url: URL(string: "https://practicum.yandex.ru")!
+    )
+}
 
