@@ -1,31 +1,20 @@
 import SwiftUI
 
 struct TabBarView: View {
-    @State var vm = CatalogueViewModel(
+    @State private var router = Router.shared
+    @State private var vm = CatalogueViewModel(
         serviceAssembly: ServicesAssembly(networkClient: DefaultNetworkClient())
     )
-
-    @State private var router = Router.shared    
     
     var body: some View {
         NavigationStack(path: $router.endpoint) {
             TabView {
-                TestCatalogView()
-                    .tabItem {
-                        Label(
-                            NSLocalizedString("Tab.catalog", comment: ""),
-                            systemImage: "square.stack.3d.up.fill"
-                        )
-                    }
-                    .backgroundStyle(.background)
-                
                 CatalogueView(vm: vm)
                     .tabItem {
-                        Label(
-                            NSLocalizedString("Tab.catalog", comment: ""),
-                            image: .catalogue
-                        )
+                        Image(.catalogue).renderingMode(.template)
+                        Text("Tab.catalog")
                     }
+                    .backgroundStyle(.background)
                 
                 CartView(context: CartViewModel(service: NftOrderServiceImpl(
                     networkClient: DefaultNetworkClient(),
@@ -48,6 +37,12 @@ struct TabBarView: View {
                 case .agreement(let parent):
                     UserAgreementView()
                         .environment(parent)
+                case .collectionNft(let collection, let nfts):
+                    CollectionNFTView(vm: CollectionNFTViewModel(collection: collection, nfts: nfts, serviceAssembly: vm.serviceAssembly))
+                case .webView(let url):
+                    if let webURL = URL(string: url) {
+                        WebViewContainer(url: webURL)
+                    }
                 }
             }
             .task {
