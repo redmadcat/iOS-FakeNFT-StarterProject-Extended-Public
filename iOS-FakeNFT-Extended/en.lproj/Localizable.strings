@@ -10,6 +10,7 @@
 "ActionSheet.sorting.price" = "По цене";
 "ActionSheet.sorting.rating" = "По рейтингу";
 "ActionSheet.sorting.name" = "По названию";
+"ActionSheet.sorting.count" = "По количеству NFT";
 "ActionSheet.sorting.close" = "Закрыть";
 "NftCardItemCell.details.price" = "Цена";
 "NftCardItemCell.delete.title" = "Вы уверены, что хотите удалить объект из корзины?";
