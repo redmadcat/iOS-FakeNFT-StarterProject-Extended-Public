@@ -26,6 +26,14 @@ final class Router {
         endpoint.append(.agreement(parent: parent))
     }
     
+    func toCollection(collection: CollectionModel, nfts: [NFTCellModel]) {
+        endpoint.append(.collectionNft(collection, nfts))
+    }
+    
+    func toWebView(url: String) {
+        endpoint.append(.webView(url: url))
+    }
+    
     func toRoot() {
         endpoint.removeAll()
     }

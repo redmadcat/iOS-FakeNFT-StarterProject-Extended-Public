@@ -9,4 +9,6 @@ enum RouteEndpoint: Hashable {
     case payment(parent: CartViewModel)
     case paymentResult
     case agreement(parent: PaymentMethodViewModel)
+    case collectionNft(CollectionModel, [NFTCellModel])
+    case webView(url: String)
 }
