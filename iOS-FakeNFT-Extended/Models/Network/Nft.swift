@@ -10,4 +10,24 @@ struct Nft: Decodable, Identifiable {
     let price: Float
     let author: String
     let website: String
+    
+    init(id: String,
+         images: [URL],
+         name: String = "",
+         createdAt: String = "",
+         rating: Int = 0,
+         description: String = "",
+         price: Float = 0,
+         author: String = "",
+         website: String = "") {
+        self.id = id
+        self.images = images
+        self.name = name
+        self.createdAt = createdAt
+        self.rating = rating
+        self.description = description
+        self.price = price
+        self.author = author
+        self.website = website
+    }
 }
