@@ -43,12 +43,9 @@ final class NftOrderServiceImpl: NftOrderService {
         let nfts = try await load()
         if !nfts.isEmpty {
             let nftIds = nfts.filter { $0.id != nft.id }.map { $0.id }
-            if !nftIds.isEmpty {
-                _ = try await networkClient.send(request: NftPutOrderRequest(nfts: nftIds))
-                await storage.remove(nft)
-            }
+            _ = try await networkClient.send(request: NftPutOrderRequest(nfts: nftIds.isEmpty ? [] : nftIds))
+            await storage.remove(nft)
         }
-        
         return await storage.cache
     }
     
