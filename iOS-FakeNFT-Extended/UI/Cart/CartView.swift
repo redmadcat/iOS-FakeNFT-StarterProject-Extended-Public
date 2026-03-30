@@ -94,6 +94,7 @@ struct CartView: View {
         .scrollContentBackground(.hidden)
         .listRowSpacing(0)
         .listStyle(.plain)
+        .padding(.bottom, -8)
     }
     
     private var nftTotalPay: some View {
