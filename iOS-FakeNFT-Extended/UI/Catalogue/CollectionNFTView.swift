@@ -10,11 +10,10 @@ import SwiftUI
 struct CollectionNFTView: View {
     @Environment(\.dismiss) private var dismiss
     @State var vm: CollectionNFTViewModel
-    @Binding var path: [SelectionType]
     var body: some View {
         ZStack(alignment: .top) {
-            ScrollView(showsIndicators: false){
-                VStack(alignment: .leading){
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading) {
                     titleImage
                     nameCollection
                     author
@@ -24,11 +23,9 @@ struct CollectionNFTView: View {
             }
             .ignoresSafeArea()
             Button {
-                path.removeAll()
-                
+                Router.shared.toRoot()
             } label: {
                 HStack {
-                    
                     Image(systemName: "chevron.left")
                         .foregroundStyle(.black)
                         .frame(height: 42)
@@ -69,8 +66,7 @@ struct CollectionNFTView: View {
                 .font(.system(size: 13, weight: .regular))
                 .frame(width: 112, alignment: .leading)
             Button {
-                path.append(.webView(url:vm.collection.website))
-                
+                Router.shared.toWebView(url: vm.collection.website)
             } label: {
                 Text("\(vm.collection.author)")
                     .foregroundColor(.blue)
@@ -78,7 +74,6 @@ struct CollectionNFTView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .frame(height: 20)
-            
         }
         .padding(.horizontal, 16)
     }
@@ -89,28 +84,30 @@ struct CollectionNFTView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 16)
     }
+    
     var collection: some View {
         let columns = [
             GridItem(.flexible()),
             GridItem(.flexible()),
             GridItem(.flexible())
         ]
-        return  LazyVGrid(columns: columns, spacing: 8) {
+        
+        return LazyVGrid(columns: columns, spacing: 8) {
             ForEach(vm.nfts) { nft in
-                CollectionRowView( isLike: vm.likedNFTIds.contains(nft.id),
-                                   isSelected: vm.selectedIds.contains(nft.id),
-                                   nftCell: nft,
-                                   actionLike: {
-                    Task {
-                        await vm.toggleLike(for: nft)
+                CollectionRowView(
+                    isLike: vm.likedNFTIds.contains(nft.id),
+                    isSelected: vm.selectedIds.contains(nft.id),
+                    nftCell: nft,
+                    actionLike: {
+                        Task {
+                            await vm.toggleLike(for: nft)
+                        }
+                    },
+                    actionSelect: {
+                        Task {
+                            await vm.selectNft(nft)
+                        }
                     }
-                    
-                },
-                                   actionSelect: {
-                    Task {
-                        await vm.selectNft(nft)
-                    }
-                }
                 )
             }
         }
@@ -122,13 +119,9 @@ struct CollectionNFTView: View {
             await vm.loadLikes()
         }
     }
-    
 }
 
 #Preview {
-    @Previewable  @State var path: [SelectionType] = [.collectionNft( CollectionModel.mock[0], NFTCellModel.mock)]
-    
     let vm = CollectionNFTViewModel(collection: CollectionModel.mock[0], nfts: NFTCellModel.mock,  serviceAssembly: ServicesAssembly(networkClient: DefaultNetworkClient()))
-    
-    CollectionNFTView(vm: vm, path: $path)
+    CollectionNFTView(vm: vm)
 }
