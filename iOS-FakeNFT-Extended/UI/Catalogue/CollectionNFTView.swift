@@ -21,18 +21,12 @@ struct CollectionNFTView: View {
                     collection
                 }
             }
-            .ignoresSafeArea()
-            Button {
-                Router.shared.toRoot()
-            } label: {
-                HStack {
-                    Image(systemName: "chevron.left")
-                        .foregroundStyle(.black)
-                        .frame(height: 42)
-                        .padding(.leading, 16)
-                    Spacer()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationBackButton()
                 }
             }
+            .ignoresSafeArea()
         }
     }
     
