@@ -48,9 +48,9 @@ final class NftOrderServiceImpl: NftOrderService {
                 await storage.remove(nft)
             }
         }
+        
         return await storage.cache
     }
-    
     
     func selectNft(_ nft: Nft) async throws {
         let nfts = try await load()
@@ -66,8 +66,6 @@ final class NftOrderServiceImpl: NftOrderService {
             await storage.save(nft)
             print("Added NFT \(nft.id)")
         }
-                                        
-        return await storage.cache
     }
     
     func sort(_ predicate: NtfOrderPredicate) async -> [Nft] {
