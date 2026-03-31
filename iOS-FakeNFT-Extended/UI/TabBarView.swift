@@ -2,8 +2,8 @@ import SwiftUI
 
 struct TabBarView: View {
     @State private var router = Router.shared
-    let  serviceAssembly = ServicesAssembly(networkClient: DefaultNetworkClient())
     @State private var vm: CatalogueViewModel
+    private let serviceAssembly = ServicesAssembly(networkClient: DefaultNetworkClient())
      
     init() {
         vm = CatalogueViewModel(serviceAssembly: serviceAssembly)
