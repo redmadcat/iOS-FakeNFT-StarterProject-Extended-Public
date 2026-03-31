@@ -39,4 +39,8 @@ struct UserAgreementView: View {
 
 #Preview {
     UserAgreementView()
+        .environment(
+            PaymentMethodViewModel(service: CurrencyServiceImpl(
+                networkClient: DefaultNetworkClient(),
+                storage: CurrencyStorageImpl())))
 }
